@@ -59,7 +59,8 @@
         <div class="container">
             <div class="row" id="headwrap">
                 <div class="col-md-3 col-sm-6 slogan">
-                    <p class="site-title"><a class="logo" href="{{route('homepage')}}" title="phim hay ">Phim Hay</p>
+                    <p class="site-title"><a class="logo" href="{{ route('homepage') }}"
+                            title="phim hay ">Phim Hay</p>
                     </a>
                 </div>
                 <div class="col-md-5 col-sm-6 halim-search-form hidden-xs">
@@ -116,13 +117,15 @@
                 <div class="collapse navbar-collapse" id="halim">
                     <div class="menu-menu_1-container">
                         <ul id="menu-menu_1" class="nav navbar-nav navbar-left">
-                            <li class="current-menu-item active"><a title="Trang Chủ" href="{{route('homepage')}}">Trang Chủ</a></li>
+                            <li class="current-menu-item active"><a title="Trang Chủ"
+                                    href="{{ route('homepage') }}">Trang Chủ</a></li>
                             <li class="mega dropdown">
                                 <a title="Thể Loại" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">Thể Loại <span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    @foreach ( $genre as $key => $gen )
-                                        <li><a title="{{$gen->title}}" href="{{route('genre', $gen->slug)}}">{{$gen->title}}</a></li>
+                                    @foreach ($genre as $key => $gen)
+                                        <li><a title="{{ $gen->title }}"
+                                                href="{{ route('genre', $gen->slug) }}">{{ $gen->title }}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
@@ -130,13 +133,16 @@
                                 <a title="Quốc Gia" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">Quốc Gia <span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    @foreach ( $country as $key => $coun )
-                                    <li><a title="{{$coun->title}}" href="{{route('country', $coun->slug)}}">{{$coun->title}}</a></li>
+                                    @foreach ($country as $key => $coun)
+                                        <li><a title="{{ $coun->title }}"
+                                                href="{{ route('country', $coun->slug) }}">{{ $coun->title }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </li>
                             @foreach ($category as $key => $cate)
-                                <li class="mega"><a title="{{$cate->title}}" href="{{route('category', $cate->slug)}}">{{$cate->title}}</a></li>
+                                <li class="mega"><a title="{{ $cate->title }}"
+                                        href="{{ route('category', $cate->slug) }}">{{ $cate->title }}</a></li>
                             @endforeach
                             {{-- <li class="mega dropdown">
                                 <a title="Năm" href="#" data-toggle="dropdown" class="dropdown-toggle"
@@ -199,6 +205,38 @@
     <script type='text/javascript' src='{{ asset('js/owl.carousel.min.') }}js' id='carousel-js'></script>
 
     <script type='text/javascript' src='{{ asset('js/halimtheme-core.min.js?ver=1626273138') }}' id='halim-init-js'>
+    </script>
+
+    <script>
+        jQuery(document).ready(function($) {
+            let owl = $('#halim_related_movies-2');
+            owl.owlCarousel({
+                loop: true, //lặp đi lặp lại
+                margin: 4,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: true,
+                nav: true,
+                navText: ['<i class="hl-down-open rotate-left"></i>',
+                    '<i class="hl-down-open rotate-right"></i>'
+                ],
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 2
+                    },
+                    480: {
+                        items: 3
+                    },
+                    600: {
+                        items: 4
+                    },
+                    1000: {
+                        items: 5
+                    }
+                }
+            })
+        });
     </script>
 
 

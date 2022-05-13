@@ -82,7 +82,7 @@
                                 </td>
                                 <td>
                                     {!! Form::open(['method' => 'DELETE', 'route' => ['category.destroy', $cate->id], 'onsubmit' => 'return confirm("Bạn có chắc chắn muốn xóa phim?")']) !!}
-                                    {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!}
+                                    {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!} &nbsp
                                     <a href="{{ route('category.edit', $cate->id) }}" class="btn btn-warning">Sửa</a>
                                     {!! Form::close() !!}
                                 </td>

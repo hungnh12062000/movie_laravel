@@ -44,7 +44,7 @@
                         {{-- {!! Form::reset('Reset', ['class' => 'btn btn-warning']) !!} --}}
                         @if (!isset($genre))
                         {!! Form::reset('Reset', ['class' => 'btn btn-warning']) !!}
-                            {!! Form::submit('Thêm dữ liệu', ['class' => 'btn btn-info pull-right']) !!}
+                            {!! Form::submit('Thêm thể loại', ['class' => 'btn btn-info pull-right']) !!}
                         @else
                             {!! Form::submit('Cập nhật', ['class' => 'btn btn-info pull-right']) !!}
                         @endif

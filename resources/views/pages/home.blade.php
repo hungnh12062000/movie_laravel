@@ -6,7 +6,9 @@
                 <div class="ajax"></div>
             </div>
         </div>
-        <div class="col-xs-12 carausel-sliderWidget">
+
+        {{-- Start slider --}}
+        {{-- <div class="col-xs-12 carausel-sliderWidget">
             <section id="halim-advanced-widget-4">
                 <div class="section-heading">
                     <a href="danhmuc.php" title="Phim Chiếu Rạp">
@@ -40,41 +42,72 @@
                 </div>
             </section>
             <div class="clearfix"></div>
-        </div>
-        <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
-            @foreach ( $category as $key => $cate_home )
+        </div> --}}
+        {{-- end slider --}}
 
-            <section id="halim-advanced-widget-2">
-                <div class="section-heading">
-                    <a href="danhmuc.php" title="{{$cate_home->title}}">
-                        <span class="h-text">{{$cate_home->title}}</span>
-                    </a>
-                </div>
-                {{-- <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
-                    <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
+        <div id="halim_related_movies-2xx" class="wrap-slider">
+            <div class="section-bar clearfix">
+                <h3 class="section-title"><span>PHIM HOT</span></h3>
+            </div>
+            <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
+                @foreach ($movie as $key => $mov)
+                    <article class="thumb grid-item post-38498">
                         <div class="halim-item">
-                            <a class="halim-thumb" href="chitiet.php">
-                                <figure><img class="lazy img-responsive"
-                                        src="https://image.bongngocdn.com/upload/poster-loki-marvel-2021.jpg"
-                                        alt="BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO" title="BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO">
-                                </figure>
-                                <span class="status">TẬP 15</span><span class="episode"><i
-                                        class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
+                            <a class="halim-thumb" href="{{route('movie')}}" title="{{ $mov->title }}">
+                                <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $mov->image) }}"
+                                        alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
+                                <span class="status">HD</span><span class="episode"><i class="fa fa-play"
+                                        aria-hidden="true"></i>Vietsub</span>
                                 <div class="icon_overlay"></div>
                                 <div class="halim-post-title-box">
                                     <div class="halim-post-title ">
-                                        <p class="entry-title">BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO</p>
-                                        <p class="original_title">My Roommate Is a Gumiho</p>
+                                        <p class="entry-title">{{ $mov->title }}</p>
+                                        {{-- <p class="original_title">Monkey King: The One And Only</p> --}}
                                     </div>
                                 </div>
                             </a>
                         </div>
                     </article>
-                </div> --}}
-            </section>
-            <div class="clearfix"></div>
+                @endforeach
+            </div>
+        </div>
 
-            {{-- <section id="halim-advanced-widget-2">
+        <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
+            @foreach ($category_home as $key => $cate_home)
+                <section id="halim-advanced-widget-2">
+                    <div class="section-heading">
+                        <a href="danhmuc.php" title="{{ $cate_home->title }}">
+                            <span class="h-text">{{ $cate_home->title }}</span>
+                        </a>
+                    </div>
+                    <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
+                        @foreach ($cate_home->movie->take(8) as $key => $mov)
+                            <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
+                                <div class="halim-item">
+                                    <a class="halim-thumb" href="chitiet.php">
+                                        <figure><img class="lazy img-responsive"
+                                                src="{{ asset('uploads/movie/' . $mov->image) }}"
+                                                alt="{{ $mov->title }}" title="{{ $mov->title }}">
+                                        </figure>
+                                        <span class="status">TẬP 15</span><span class="episode"><i
+                                                class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
+                                        <div class="icon_overlay"></div>
+                                        <div class="halim-post-title-box">
+                                            <div class="halim-post-title ">
+                                                <p class="entry-title">{{ $mov->title }}</p>
+                                                <p class="original_title">My Roommate Is a Gumiho</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </article>
+                        @endforeach
+
+                    </div>
+                </section>
+                <div class="clearfix"></div>
+
+                {{-- <section id="halim-advanced-widget-2">
                 <div class="section-heading">
                     <a href="danhmuc.php" title="Phim Lẻ">
                         <span class="h-text">Phim Lẻ</span>
@@ -137,6 +170,7 @@
             @endforeach
         </main>
 
+        {{-- start sidebar --}}
         <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4">
             <div id="halim_tab_popular_videos-widget-7" class="widget halim_tab_popular_videos-widget">
                 <div class="section-bar clearfix">
@@ -208,5 +242,7 @@
                 <div class="clearfix"></div>
             </div>
         </aside>
+        {{-- end sidebar --}}
+
     </div>
 @endsection

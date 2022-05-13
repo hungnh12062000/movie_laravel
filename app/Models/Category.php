@@ -13,4 +13,9 @@ class Category extends Model
 
     public $timestamps = false;
     use HasFactory;
+
+    //One to Many: 1 category sẽ có nhiều movie
+    public function movie(){
+        return $this->hasMany(Movie::class)->orderBy('id', 'DESC');
+    }
 }

@@ -9,6 +9,10 @@ use App\Models\Country;
 use App\Models\Episode;
 use App\Models\Movie;
 
+// note
+
+
+
 class IndexController extends Controller
 {
     // controll page pages/home
@@ -16,7 +20,11 @@ class IndexController extends Controller
         $category = Category::orderBy('id', 'DESC')->where('status', 1)->get();
         $genre    = Genre::orderBy('id', 'DESC')->get();
         $country  = Country::orderBy('id', 'DESC')->get();
-        return view('pages.home', compact('category', 'genre', 'country'));
+        $movie    = Movie::orderBy('id', 'DESC')->get();
+
+        $category_home = Category::with('movie')->orderBy('id', 'DESC')->where('status', 1)->get();
+
+        return view('pages.home', compact('category', 'genre', 'country', 'category_home', 'movie'));
     }
 
     // controll page pages/category
