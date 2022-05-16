@@ -90,8 +90,8 @@
                 <div class="container">
                     @include('layouts.navbar')
                 </div>
-            @endif
-            @yield('content')
+                @endif
+                @yield('content')
         </main>
     </div>
 

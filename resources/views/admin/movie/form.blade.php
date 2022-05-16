@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -26,6 +26,11 @@
                         </div>
 
                         <div class="form-group">
+                            {!! Form::label('name_eng', 'Tên tiếng Anh', []) !!}
+                            {!! Form::text('name_eng', isset($movie) ? $movie->name_eng : '', ['class' => 'form-control', 'placeholder' => 'Nhập tên phim ...']) !!}
+                        </div>
+
+                        <div class="form-group">
                             {!! Form::label('slug', 'Slug phim', []) !!}
                             {!! Form::text('slug', isset($movie) ? $movie->slug : '', ['class' => 'form-control', 'placeholder' => 'Slug phim ...', 'id' => 'convert_slug']) !!}
                         </div>
@@ -38,6 +43,11 @@
                         <div class="form-group">
                             {!! Form::label('Active', 'Trạng thái', []) !!}
                             {!! Form::select('status', ['1' => 'Hiển thị', '0' => 'Không hiển thị'], isset($movie) ? $movie->status : null, ['class' => 'form-control']) !!}
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('resolution', 'Định dạng', []) !!}
+                            {!! Form::select('resolution', ['0' => 'HD', '1' => 'SD','2' => 'HDCam', '3' => 'Cam', '4' => 'FULLHD'], isset($movie) ? $movie->resolution : null, ['class' => 'form-control']) !!}
                         </div>
 
                         {{-- field ngoại  --}}
@@ -85,12 +95,13 @@
                             <th scope="col">#</th>
                             <th scope="col">Tên phim</th>
                             <th scope="col">Hình ảnh</th>
+                            <th scope="col">Định dạng</th>
                             <th scope="col">Slug</th>
-                            {{-- <th scope="col" class="col-3">Mô tả phim</th> --}}
+                            <th scope="col">Mô tả phim</th>
                             <th scope="col">Trạng thái</th>
-                            <th scope="col" class="col-1">Danh mục</th>
-                            <th scope="col" class="col-1">Quốc gia</th>
-                            <th scope="col" class="col-1">Thể loại</th>
+                            <th scope="col">Danh mục</th>
+                            <th scope="col">Quốc gia</th>
+                            <th scope="col">Thể loại</th>
                             <th scope="col">Hành động</th>
                         </tr>
                     </thead>
@@ -100,9 +111,22 @@
                             <tr>
                                 <th scope="row">{{ $key }}</th>
                                 <td>{{ $movie->title }}</td>
-                                <td><img width="100%" src="{{asset('/uploads/movie/'.$movie->image)}}" alt=""></td>
+                                <td><img width="60%" src="{{asset('/uploads/movie/'.$movie->image)}}" alt=""></td>
+                                <td>
+                                    @if ($movie->resolution == 0)
+                                        HD
+                                    @elseif ($movie->resolution == 1)
+                                        SD
+                                    @elseif ($movie->resolution == 2)
+                                        HDCam
+                                    @elseif ($movie->resolution == 3)
+                                        Cam
+                                    @elseif ($movie->resolution == 4)
+                                        FULLHD
+                                    @endif
+                                </td>
                                 <td>{{ $movie->slug }}</td>
-                                {{-- <td>{{ $movie->description }}</td> --}}
+                                <td>{{ $movie->description }}</td>
 
                                 <td>
                                     @if ($movie->status)

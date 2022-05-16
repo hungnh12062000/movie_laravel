@@ -41,7 +41,7 @@ Route::prefix('/')->group(function () {
     Route::get('/quoc-gia/{slug}', [IndexController::class, 'country'])->name('country');
 
     //page phim - chi tiết phim
-    Route::get('/phim', [IndexController::class, 'movie'])->name('movie');
+    Route::get('/phim/{slug}', [IndexController::class, 'movie'])->name('movie');
 
     //page xem phim
     Route::get('/xem-phim', [IndexController::class, 'watch'])->name('watch');
@@ -51,7 +51,7 @@ Route::prefix('/')->group(function () {
 });
 
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('homeadmin');
 
 //Admin
 

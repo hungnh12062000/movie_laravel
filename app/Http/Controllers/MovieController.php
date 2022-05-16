@@ -28,9 +28,11 @@ class MovieController extends Controller
      */
     public function create()
     {
+        //1 Collection chứa mảng các 'title' và 'id' của category || country || genre
         $category   = Category::pluck('title', 'id');
         $country    = Country::pluck('title', 'id');
         $genre      = Genre::pluck('title', 'id');
+
         $list       = Movie::with('category', 'country', 'genre')->orderBy('id', 'DESC')->get();
         return view('admin.movie.form', compact('list', 'category', 'country', 'genre'));
     }
@@ -47,6 +49,8 @@ class MovieController extends Controller
         $movie  = new Movie();
 
         $movie->title       = $data['title'];
+        $movie->resolution  = $data['resolution'];
+        $movie->name_eng    = $data['name_eng'];
         $movie->description = $data['description'];
         $movie->status      = $data['status'];
         $movie->slug        = $data['slug'];
@@ -64,7 +68,7 @@ class MovieController extends Controller
             $name_image     = current(explode('.', $get_name_image)); //=> image
             $new_image      = $name_image . rand(0, 9999) . '.' . $get_image->getClientOriginalExtension(); //image1234.png
             $get_image->move($path, $new_image);
-            $movie->image  = $new_image;
+            $movie->image   = $new_image;
         }
 
         $movie->save();
@@ -112,7 +116,9 @@ class MovieController extends Controller
         $movie  = Movie::find($id);
 
         $movie->title       = $data['title'];
+        $movie->name_eng    = $data['name_eng'];
         $movie->description = $data['description'];
+        $movie->resolution  = $data['resolution'];
         $movie->status      = $data['status'];
         $movie->category_id = $data['category_id'];
         $movie->country_id  = $data['country_id'];
@@ -130,7 +136,7 @@ class MovieController extends Controller
             $name_image     = current(explode('.', $get_name_image)); //=> image
             $new_image      = $name_image . rand(0, 9999) . '.' . $get_image->getClientOriginalExtension(); //image1234.png
             $get_image->move($path, $new_image);
-            $movie->image  = $new_image;
+            $movie->image   = $new_image;
         }
 
         $movie->save();

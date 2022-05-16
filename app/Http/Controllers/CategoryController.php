@@ -40,10 +40,10 @@ class CategoryController extends Controller
         $data = $request->all();
         $category = new Category();
 
-        $category->title = $data['title'];
-        $category->slug = $data['slug'];
-        $category->description = $data['description'];
-        $category->status = $data['status'];
+        $category->title        = $data['title'];
+        $category->slug         = $data['slug'];
+        $category->description  = $data['description'];
+        $category->status       = $data['status'];
 
         $category->save();
 

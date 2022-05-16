@@ -7,43 +7,6 @@
             </div>
         </div>
 
-        {{-- Start slider --}}
-        {{-- <div class="col-xs-12 carausel-sliderWidget">
-            <section id="halim-advanced-widget-4">
-                <div class="section-heading">
-                    <a href="danhmuc.php" title="Phim Chiếu Rạp">
-                        <span class="h-text">Phim Chiếu Rạp</span>
-                    </a>
-                    <ul class="heading-nav pull-right hidden-xs">
-                        <li class="section-btn halim_ajax_get_post" data-catid="4" data-showpost="12"
-                            data-widgetid="halim-advanced-widget-4" data-layout="6col"><span data-text="Chiếu Rạp"></span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="halim-advanced-widget-4-ajax-box" class="halim_box">
-                    <article class="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
-                        <div class="halim-item">
-                            <a class="halim-thumb" href="{{ route('movie') }}" title="GÓA PHỤ ĐEN">
-                                <figure><img class="lazy img-responsive"
-                                        src="https://lumiere-a.akamaihd.net/v1/images/p_blackwidow_disneyplus_21043-1_63f71aa0.jpeg"
-                                        alt="GÓA PHỤ ĐEN" title="GÓA PHỤ ĐEN"></figure>
-                                <span class="status">HD</span><span class="episode"><i class="fa fa-play"
-                                        aria-hidden="true"></i>Vietsub</span>
-                                <div class="icon_overlay"></div>
-                                <div class="halim-post-title-box">
-                                    <div class="halim-post-title ">
-                                        <p class="entry-title">GÓA PHỤ ĐEN</p>
-                                        <p class="original_title">Black Widow</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </article>
-                </div>
-            </section>
-            <div class="clearfix"></div>
-        </div> --}}
-        {{-- end slider --}}
 
         <div id="halim_related_movies-2xx" class="wrap-slider">
             <div class="section-bar clearfix">
@@ -53,16 +16,28 @@
                 @foreach ($movie as $key => $mov)
                     <article class="thumb grid-item post-38498">
                         <div class="halim-item">
-                            <a class="halim-thumb" href="{{route('movie')}}" title="{{ $mov->title }}">
+                            <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}" title="{{ $mov->title }}">
                                 <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $mov->image) }}"
                                         alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
-                                <span class="status">HD</span><span class="episode"><i class="fa fa-play"
+                                <span class="status">
+                                    @if ($mov->resolution == 0)
+                                        HD
+                                    @elseif ($mov->resolution == 1)
+                                        SD
+                                    @elseif ($mov->resolution == 2)
+                                        HDCam
+                                    @elseif ($mov->resolution == 3)
+                                        Cam
+                                    @elseif ($mov->resolution == 4)
+                                        FULLHD
+                                    @endif
+                                </span><span class="episode"><i class="fa fa-play"
                                         aria-hidden="true"></i>Vietsub</span>
                                 <div class="icon_overlay"></div>
                                 <div class="halim-post-title-box">
                                     <div class="halim-post-title ">
                                         <p class="entry-title">{{ $mov->title }}</p>
-                                        {{-- <p class="original_title">Monkey King: The One And Only</p> --}}
+                                        <p class="original_title">{{ $mov->name_eng }}</p>
                                     </div>
                                 </div>
                             </a>
@@ -74,6 +49,7 @@
 
         <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
             @foreach ($category_home as $key => $cate_home)
+                {{-- loop 3 category --}}
                 <section id="halim-advanced-widget-2">
                     <div class="section-heading">
                         <a href="danhmuc.php" title="{{ $cate_home->title }}">
@@ -82,6 +58,7 @@
                     </div>
                     <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
                         @foreach ($cate_home->movie->take(8) as $key => $mov)
+                            {{-- movie trong category --}}
                             <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
                                 <div class="halim-item">
                                     <a class="halim-thumb" href="chitiet.php">
@@ -89,13 +66,25 @@
                                                 src="{{ asset('uploads/movie/' . $mov->image) }}"
                                                 alt="{{ $mov->title }}" title="{{ $mov->title }}">
                                         </figure>
-                                        <span class="status">TẬP 15</span><span class="episode"><i
-                                                class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
+                                        <span class="status">
+                                            @if ($mov->resolution == 0)
+                                                HD
+                                            @elseif ($mov->resolution == 1)
+                                                SD
+                                            @elseif ($mov->resolution == 2)
+                                                HDCam
+                                            @elseif ($mov->resolution == 3)
+                                                Cam
+                                            @elseif ($mov->resolution == 4)
+                                                FULLHD
+                                            @endif
+                                        </span><span class="episode"><i class="fa fa-play"
+                                                aria-hidden="true"></i>Vietsub</span>
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
                                                 <p class="entry-title">{{ $mov->title }}</p>
-                                                <p class="original_title">My Roommate Is a Gumiho</p>
+                                                <p class="original_title">{{ $mov->name_eng }}</p>
                                             </div>
                                         </div>
                                     </a>
@@ -106,67 +95,6 @@
                     </div>
                 </section>
                 <div class="clearfix"></div>
-
-                {{-- <section id="halim-advanced-widget-2">
-                <div class="section-heading">
-                    <a href="danhmuc.php" title="Phim Lẻ">
-                        <span class="h-text">Phim Lẻ</span>
-                    </a>
-                </div>
-                <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
-                    <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
-                        <div class="halim-item">
-                            <a class="halim-thumb" href="chitiet.php">
-                                <figure><img class="lazy img-responsive"
-                                        src="https://upload.wikimedia.org/wikipedia/vi/e/e8/Avengers-Infinity_War-Official-Poster.jpg"
-                                        alt="BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO" title="BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO">
-                                </figure>
-                                <span class="status">TẬP 15</span><span class="episode"><i
-                                        class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
-                                <div class="icon_overlay"></div>
-                                <div class="halim-post-title-box">
-                                    <div class="halim-post-title ">
-                                        <p class="entry-title">BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO</p>
-                                        <p class="original_title">My Roommate Is a Gumiho</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </article>
-
-                </div>
-            </section>
-            <div class="clearfix"></div>
-
-            <section id="halim-advanced-widget-2">
-                <div class="section-heading">
-                    <a href="danhmuc.php" title="Phim Lẻ">
-                        <span class="h-text">Phim Chiếu Rạp</span>
-                    </a>
-                </div>
-                <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
-                    <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
-                        <div class="halim-item">
-                            <a class="halim-thumb" href="chitiet.php">
-                                <figure><img class="lazy img-responsive"
-                                        src="https://fptninhbinh.vn/wp-content/uploads/2021/06/bo-gia.jpg"
-                                        alt="BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO" title="BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO">
-                                </figure>
-                                <span class="status">TẬP 15</span><span class="episode"><i
-                                        class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
-                                <div class="icon_overlay"></div>
-                                <div class="halim-post-title-box">
-                                    <div class="halim-post-title ">
-                                        <p class="entry-title">BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO</p>
-                                        <p class="original_title">My Roommate Is a Gumiho</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </article>
-                </div>
-            </section>
-            <div class="clearfix"></div> --}}
             @endforeach
         </main>
 
@@ -200,24 +128,6 @@
                     <div role="tabpanel" class="tab-pane active halim-ajax-popular-post">
                         <div class="halim-ajax-popular-post-loading hidden"></div>
                         <div id="halim-ajax-popular-post" class="popular-post">
-                            <div class="item post-37176">
-                                <a href="chitiet.php" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ">
-                                    <div class="item-link">
-                                        <img src="https://ghienphim.org/uploads/GPax0JpZbqvIVyfkmDwhRCKATNtLloFQ.jpeg?v=1624801798"
-                                            class="lazy post-thumb" alt="CHỊ MƯỜI BA: BA NGÀY SINH TỬ"
-                                            title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" />
-                                        <span class="is_trailer">Trailer</span>
-                                    </div>
-                                    <p class="title">CHỊ MƯỜI BA: BA NGÀY SINH TỬ</p>
-                                </a>
-                                <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
-                                <div style="float: left;">
-                                    <span class="user-rate-image post-large-rate stars-large-vang"
-                                        style="display: block;/* width: 100%; */">
-                                        <span style="width: 0%"></span>
-                                    </span>
-                                </div>
-                            </div>
                             <div class="item post-37176">
                                 <a href="chitiet.php" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ">
                                     <div class="item-link">
