@@ -140,6 +140,17 @@
                                     @endforeach
                                 </ul>
                             </li>
+                            <li class="mega dropdown">
+                                <a title="Năm phim" href="#" data-toggle="dropdown" class="dropdown-toggle"
+                                    aria-haspopup="true">Năm phim <span class="caret"></span></a>
+                                <ul role="menu" class=" dropdown-menu">
+                                    @for ($year = 2010; $year <= 2022; $year++)
+                                        <li><a title="{{ $year }}"
+                                                href="{{ url('nam/'.$year) }}">{{ $year }}</a>
+                                        </li>
+                                    @endfor
+                                </ul>
+                            </li>
                             @foreach ($category as $key => $cate)
                                 <li class="mega"><a title="{{ $cate->title }}"
                                         href="{{ route('category', $cate->slug) }}">{{ $cate->title }}</a></li>

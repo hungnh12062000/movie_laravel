@@ -32,7 +32,13 @@
                                         FULLHD
                                     @endif
                                 </span><span class="episode"><i class="fa fa-play"
-                                        aria-hidden="true"></i>Vietsub</span>
+                                        aria-hidden="true"></i>
+                                        @if ($mov->cc == 0)
+                                            Phụ đề
+                                        @elseif ($mov->cc == 1)
+                                            Thuyết minh
+                                        @endif
+                                </span>
                                 <div class="icon_overlay"></div>
                                 <div class="halim-post-title-box">
                                     <div class="halim-post-title ">
@@ -61,7 +67,7 @@
                             {{-- movie trong category --}}
                             <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
                                 <div class="halim-item">
-                                    <a class="halim-thumb" href="chitiet.php">
+                                    <a class="halim-thumb" href="{{route('movie', $mov->slug)}}">
                                         <figure><img class="lazy img-responsive"
                                                 src="{{ asset('uploads/movie/' . $mov->image) }}"
                                                 alt="{{ $mov->title }}" title="{{ $mov->title }}">
@@ -78,8 +84,13 @@
                                             @elseif ($mov->resolution == 4)
                                                 FULLHD
                                             @endif
-                                        </span><span class="episode"><i class="fa fa-play"
-                                                aria-hidden="true"></i>Vietsub</span>
+                                        </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                            @if ($mov->cc == 0)
+                                                Phụ đề
+                                            @elseif ($mov->cc == 1)
+                                                Thuyết minh
+                                            @endif
+                                        </span>
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">

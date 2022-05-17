@@ -105,7 +105,32 @@
     <script type="text/javascript" src="//cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript">
+        $('.select-year').change(function(){
+            let year = $(this).find(':selected').val();
+            let id_movie = $(this).attr('id');
 
+            $.ajax({
+                // URL muốn sử dụng AJAX để thực hiện request
+                url: "{{url('/update-year-phim')}}",
+
+                //Kiểu request muốn thực hiện
+                type: "GET",
+
+                //Dữ liệu được gửi lên server khi thực thi một request Ajax.
+                data: {
+                    year: year,
+                    id_movie: id_movie
+                },
+
+                //Một hàm được gọi khi request thành công.
+                success: function(){
+                    alert('Thay đổi năm phim theo năm ' + year + ' thành công!');
+                }
+            });
+        })
+    </script>
+
+    <script type="text/javascript">
         //datatable
         $(document).ready(function() {
             $('#tableMovie').DataTable();

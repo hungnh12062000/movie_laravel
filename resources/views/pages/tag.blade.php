@@ -5,8 +5,8 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-6">
-                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">{{ $country_slug->title }}</a> »
-                                    <span class="breadcrumb_last" aria-current="page">2022</span></span></span></div>
+                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="#">Phim theo tags</a> » <span
+                                class="breadcrumb_last" aria-current="page">{{$tag}}</span></span></span></div>
                     </div>
                 </div>
             </div>
@@ -17,14 +17,14 @@
         <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
             <section>
                 <div class="section-bar clearfix">
-                    <h1 class="section-title"><span>{{ $country_slug->title }}</span></h1>
+                    <h1 class="section-title"><span>Tag : {{$tag}}</span></h1>
                 </div>
                 <div class="halim_box">
 
                     @foreach ($movie as $key => $mov)
                         <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
                             <div class="halim-item">
-                                <a class="halim-thumb" href="{{route('movie', $mov->slug)}}">
+                                <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
                                     <figure><img class="lazy img-responsive"
                                             src="{{ asset('uploads/movie/' . $mov->image) }}" alt="{{ $mov->title }}"
                                             title="{{ $mov->title }}">
@@ -62,11 +62,23 @@
 
                 </div>
                 <div class="clearfix"></div>
+
+                {{-- Panigation --}}
                 <div class="text-center">
+                    {{-- <ul class='page-numbers'>
+                    <li><span aria-current="page" class="page-numbers current">1</span></li>
+                    <li><a class="page-numbers" href="">2</a></li>
+                    <li><a class="page-numbers" href="">3</a></li>
+                    <li><span class="page-numbers dots">&hellip;</span></li>
+                    <li><a class="page-numbers" href="">55</a></li>
+                    <li><a class="next page-numbers" href=""><i class="hl-down-open rotate-right"></i></a></li>
+                </ul> --}}
                     {!! $movie->links('pagination::bootstrap-4') !!}
                 </div>
             </section>
         </main>
+
+        {{-- sidebar --}}
         <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4">
             <div id="halim_tab_popular_videos-widget-7" class="widget halim_tab_popular_videos-widget">
                 <div class="section-bar clearfix">

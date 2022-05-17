@@ -52,9 +52,10 @@ Route::prefix('/')->group(function () {
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('homeadmin');
+Route::get('/nam/{year}', [IndexController::class, 'year']);
+Route::get('/tag/{tag}', [IndexController::class, 'tag']);
 
 //Admin
-
 Route::prefix('/')->group(function () {
     Route::resource('/category', CategoryController::class);
     Route::resource('/genre', GenreController::class);
@@ -62,3 +63,6 @@ Route::prefix('/')->group(function () {
     Route::resource('/episode', EpisodeController::class);
     Route::resource('/movie', MovieController::class);
 });
+
+Route::get('/update-year-phim', [MovieController::class, 'update_year']);
+

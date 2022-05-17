@@ -8,6 +8,9 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Genre;
 
+// Xử lý datetime trong Laravel
+use Carbon\Carbon;
+
 
 class MovieController extends Controller
 {
@@ -19,6 +22,15 @@ class MovieController extends Controller
     public function index()
     {
         //
+    }
+
+    //update year
+    public function update_year(Request $request)
+    {
+        $data           = $request->all();
+        $movie          = Movie::find($data['id_movie']);
+        $movie->year    = $data['year'];
+        $movie->save();
     }
 
     /**
@@ -50,6 +62,7 @@ class MovieController extends Controller
 
         $movie->title       = $data['title'];
         $movie->resolution  = $data['resolution'];
+        $movie->cc          = $data['cc'];
         $movie->name_eng    = $data['name_eng'];
         $movie->description = $data['description'];
         $movie->status      = $data['status'];
@@ -57,6 +70,10 @@ class MovieController extends Controller
         $movie->category_id = $data['category_id'];
         $movie->country_id  = $data['country_id'];
         $movie->genre_id    = $data['genre_id'];
+        $movie->create_day  = Carbon::now('Asia/Ho_Chi_Minh');
+        $movie->update_day  = Carbon::now('Asia/Ho_Chi_Minh');
+        $movie->time        = $data['time'];
+        $movie->tags        = $data['tags'];
 
         //add image
         $get_image = $request->file('image');
@@ -119,11 +136,15 @@ class MovieController extends Controller
         $movie->name_eng    = $data['name_eng'];
         $movie->description = $data['description'];
         $movie->resolution  = $data['resolution'];
+        $movie->cc          = $data['cc'];
         $movie->status      = $data['status'];
         $movie->category_id = $data['category_id'];
         $movie->country_id  = $data['country_id'];
         $movie->genre_id    = $data['genre_id'];
         $movie->slug        = $data['slug'];
+        $movie->update_day  = Carbon::now('Asia/Ho_Chi_Minh');
+        $movie->time        = $data['time'];
+        $movie->tags        = $data['tags'];
 
         //delete old image then update new image
         $get_image = $request->file('image');

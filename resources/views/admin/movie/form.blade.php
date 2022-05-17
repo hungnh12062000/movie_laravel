@@ -19,49 +19,70 @@
                         @else
                             {!! Form::open(['method' => 'PUT', 'route' => ['movie.update', $movie->id], 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
                         @endif
-                        <div class="form-group">
-                            {!! Form::label('title', 'Tên phim', []) !!}
-                            {!! Form::text('title', isset($movie) ? $movie->title : '', ['class' => 'form-control', 'placeholder' => 'Nhập tên phim ...', 'id' => 'slug', 'onkeyup' => 'ChangeToSlug()']) !!}
-                            {{-- {!! Form::submit('Add', ['class' => 'btn btn-success']) !!} --}}
-                        </div>
 
-                        <div class="form-group">
-                            {!! Form::label('name_eng', 'Tên tiếng Anh', []) !!}
-                            {!! Form::text('name_eng', isset($movie) ? $movie->name_eng : '', ['class' => 'form-control', 'placeholder' => 'Nhập tên phim ...']) !!}
-                        </div>
+                        <div class="form-group" style="display: flex; gap: 20px;">
+                            <div class="form-group-title" style="flex-grow: 1;">
+                                {!! Form::label('title', 'Tên phim', []) !!}
+                                {!! Form::text('title', isset($movie) ? $movie->title : '', ['class' => 'form-control', 'placeholder' => 'Nhập tên phim ...', 'id' => 'slug', 'onkeyup' => 'ChangeToSlug()']) !!}
+                                {{-- {!! Form::submit('Add', ['class' => 'btn btn-success']) !!} --}}
+                            </div>
 
-                        <div class="form-group">
-                            {!! Form::label('slug', 'Slug phim', []) !!}
-                            {!! Form::text('slug', isset($movie) ? $movie->slug : '', ['class' => 'form-control', 'placeholder' => 'Slug phim ...', 'id' => 'convert_slug']) !!}
+                            <div class="form-group-name_eng" style="flex-grow: 1;">
+                                {!! Form::label('name_eng', 'Tên tiếng Anh', []) !!}
+                                {!! Form::text('name_eng', isset($movie) ? $movie->name_eng : '', ['class' => 'form-control', 'placeholder' => 'Nhập tên phim ...']) !!}
+                            </div>
+
+                            <div class="form-group_slug" style="flex-grow: 1;">
+                                {!! Form::label('slug', 'Slug phim', []) !!}
+                                {!! Form::text('slug', isset($movie) ? $movie->slug : '', ['class' => 'form-control', 'placeholder' => 'Slug phim ...', 'id' => 'convert_slug']) !!}
+                            </div>
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('description', 'Nội dung phim', []) !!}
                             {!! Form::textarea('description', isset($movie) ? $movie->description : '', ['style' => 'resize:none', 'class' => 'form-control', 'placeholder' => 'Nội dung chính ...', 'id' => 'description']) !!}
                         </div>
-
                         <div class="form-group">
-                            {!! Form::label('Active', 'Trạng thái', []) !!}
-                            {!! Form::select('status', ['1' => 'Hiển thị', '0' => 'Không hiển thị'], isset($movie) ? $movie->status : null, ['class' => 'form-control']) !!}
+                            {!! Form::label('tags', 'Từ khóa phim', []) !!}
+                            {!! Form::textarea('tags', isset($movie) ? $movie->tags : '', ['style' => 'resize:none', 'class' => 'form-control', 'placeholder' => 'Nhập từ khóa ...']) !!}
                         </div>
 
-                        <div class="form-group">
-                            {!! Form::label('resolution', 'Định dạng', []) !!}
-                            {!! Form::select('resolution', ['0' => 'HD', '1' => 'SD','2' => 'HDCam', '3' => 'Cam', '4' => 'FULLHD'], isset($movie) ? $movie->resolution : null, ['class' => 'form-control']) !!}
+                        <div class="form-group" style="display: flex; gap: 20px;">
+                            <div class="form-group-status" style="flex-grow: 1;">
+                                {!! Form::label('Active', 'Trạng thái', []) !!}
+                                {!! Form::select('status', ['1' => 'Hiển thị', '0' => 'Không hiển thị'], isset($movie) ? $movie->status : null, ['class' => 'form-control']) !!}
+                            </div>
+
+                            <div class="form-group-resolution" style="flex-grow: 1;">
+                                {!! Form::label('resolution', 'Định dạng', []) !!}
+                                {!! Form::select('resolution', ['0' => 'HD', '1' => 'SD','2' => 'HDCam', '3' => 'Cam', '4' => 'FULLHD'], isset($movie) ? $movie->resolution : null, ['class' => 'form-control']) !!}
+                            </div>
+
+                            <div class="form-group-cc" style="flex-grow: 1;">
+                                {!! Form::label('cc', 'Phụ đề', []) !!}
+                                {!! Form::select('cc', ['0' => 'Phụ đề', '1' => 'Thuyết minh'], isset($movie) ? $movie->cc : null, ['class' => 'form-control']) !!}
+                            </div>
+
+                            <div class="form-group-cc" style="flex-grow: 1;">
+                                {!! Form::label('time', 'Thời lượng', []) !!}
+                                {!! Form::text('time', isset($movie) ? $movie->time : '', ['class' => 'form-control', 'placeholder' => ' 133 phút']) !!}
+                            </div>
                         </div>
 
                         {{-- field ngoại  --}}
-                        <div class="form-group">
-                            {!! Form::label('Category', 'Danh mục phim', []) !!}
-                            {!! Form::select('category_id', $category , isset($movie) ? $movie->category_id : null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('Country', 'Quốc gia', []) !!}
-                            {!! Form::select('country_id', $country , isset($movie) ? $movie->country_id : null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('Genre', 'Thể loại', []) !!}
-                            {!! Form::select('genre_id', $genre , isset($movie) ? $movie->genre_id : null, ['class' => 'form-control']) !!}
+                        <div class="form-group" style="display: flex; gap: 20px;">
+                            <div class="category" style="flex-grow: 1;">
+                                {!! Form::label('Category', 'Danh mục phim', []) !!}
+                                {!! Form::select('category_id', $category , isset($movie) ? $movie->category_id : null, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="country" style="flex-grow: 1;">
+                                {!! Form::label('Country', 'Quốc gia', []) !!}
+                                {!! Form::select('country_id', $country , isset($movie) ? $movie->country_id : null, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="genre" style="flex-grow: 1;">
+                                {!! Form::label('Genre', 'Thể loại', []) !!}
+                                {!! Form::select('genre_id', $genre , isset($movie) ? $movie->genre_id : null, ['class' => 'form-control']) !!}
+                            </div>
                         </div>
 
                         {{-- hình ảnh phim  --}}
@@ -70,7 +91,7 @@
                             {!! Form::file('image', ['class' => 'form-control-file']) !!}
                         </div>
                         @if (isset($movie))
-                            <img width="20%" style="object-fit: cover;" src="{{asset('/uploads/movie/'.$movie->image)}}" alt="">
+                            <img width="15%" style="object-fit: cover;" src="{{asset('/uploads/movie/'.$movie->image)}}" alt="">
                             <br>
                         @endif
 
@@ -96,12 +117,18 @@
                             <th scope="col">Tên phim</th>
                             <th scope="col">Hình ảnh</th>
                             <th scope="col">Định dạng</th>
-                            <th scope="col">Slug</th>
+                            <th scope="col">Phụ đề</th>
+                            <th scope="col">Thời lượng</th>
+                            {{-- <th scope="col">Slug</th> --}}
                             <th scope="col">Mô tả phim</th>
-                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Từ khóa</th>
+                            {{-- <th scope="col">Trạng thái</th>
                             <th scope="col">Danh mục</th>
                             <th scope="col">Quốc gia</th>
-                            <th scope="col">Thể loại</th>
+                            <th scope="col">Thể loại</th> --}}
+                            {{-- <th scope="col">Ngày tạo</th> --}}
+                            <th scope="col">Ngày cập nhật</th>
+                            <th scope="col" class="col-1">Năm phim</th>
                             <th scope="col">Hành động</th>
                         </tr>
                     </thead>
@@ -125,10 +152,19 @@
                                         FULLHD
                                     @endif
                                 </td>
-                                <td>{{ $movie->slug }}</td>
-                                <td>{{ $movie->description }}</td>
-
                                 <td>
+                                    @if ($movie->cc == 0)
+                                        Phụ đề
+                                    @elseif ($movie->cc == 1)
+                                        Thuyết minh
+                                    @endif
+                                </td>
+                                <td>{{ $movie->time }}</td>
+                                {{-- <td>{{ $movie->slug }}</td> --}}
+                                <td>{{ $movie->description }}</td>
+                                <td>{{ $movie->tags }}</td>
+
+                                {{-- <td>
                                     @if ($movie->status)
                                         Hiển thị
                                     @else
@@ -138,7 +174,12 @@
 
                                 <td>{{ $movie->category->title }}</td>
                                 <td>{{ $movie->country->title }}</td>
-                                <td>{{ $movie->genre->title }}</td>
+                                <td>{{ $movie->genre->title }}</td> --}}
+                                {{-- <td>{{ $movie->create_day }}</td> --}}
+                                <td>{{ $movie->update_day }}</td>
+                                <td>
+                                    {!! Form::selectYear('year', 2010, 2022, isset($movie->year) ? $movie->year : '' , ['class' => 'select-year custom-select', 'id' => $movie->id]) !!}
+                                </td>
 
                                 <td>
                                     {!! Form::open(['method' => 'DELETE', 'route' => ['movie.destroy', $movie->id], 'onsubmit' => 'return confirm("Bạn có chắc chắn muốn xóa phim?")']) !!}
