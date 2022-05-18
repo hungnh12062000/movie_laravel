@@ -5,6 +5,7 @@
 }
 html {
     overflow-x: hidden !important;
+    scroll-behavior: smooth;
 }
 body.halimthemes {
     color: #a5a5a5;

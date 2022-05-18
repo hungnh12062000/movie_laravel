@@ -36,6 +36,10 @@
                                 {!! Form::label('slug', 'Slug phim', []) !!}
                                 {!! Form::text('slug', isset($movie) ? $movie->slug : '', ['class' => 'form-control', 'placeholder' => 'Slug phim ...', 'id' => 'convert_slug']) !!}
                             </div>
+                            <div class="form-group_trailer" style="flex-grow: 1;">
+                                {!! Form::label('trailer', 'Trailer phim', []) !!}
+                                {!! Form::text('trailer', isset($movie) ? $movie->trailer : '', ['class' => 'form-control', 'placeholder' => 'trailer phim ...', 'id' => 'convert_trailer']) !!}
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -55,7 +59,7 @@
 
                             <div class="form-group-resolution" style="flex-grow: 1;">
                                 {!! Form::label('resolution', 'Định dạng', []) !!}
-                                {!! Form::select('resolution', ['0' => 'HD', '1' => 'SD','2' => 'HDCam', '3' => 'Cam', '4' => 'FULLHD'], isset($movie) ? $movie->resolution : null, ['class' => 'form-control']) !!}
+                                {!! Form::select('resolution', ['0' => 'HD', '1' => 'SD','2' => 'HDCam', '3' => 'Cam', '4' => 'FULLHD', '5' => 'Trailer'], isset($movie) ? $movie->resolution : null, ['class' => 'form-control']) !!}
                             </div>
 
                             <div class="form-group-cc" style="flex-grow: 1;">
@@ -71,6 +75,10 @@
 
                         {{-- field ngoại  --}}
                         <div class="form-group" style="display: flex; gap: 20px;">
+                            <div class="movie_hot" style="flex-grow: 1;">
+                                {!! Form::label('movie_hot', 'Phim hot', []) !!}
+                                {!! Form::select('movie_hot', ['1' => 'Có', '0' => 'Không'] , isset($movie) ? $movie->movie_hot : null, ['class' => 'form-control']) !!}
+                            </div>
                             <div class="category" style="flex-grow: 1;">
                                 {!! Form::label('Category', 'Danh mục phim', []) !!}
                                 {!! Form::select('category_id', $category , isset($movie) ? $movie->category_id : null, ['class' => 'form-control']) !!}
@@ -116,12 +124,13 @@
                             <th scope="col">#</th>
                             <th scope="col">Tên phim</th>
                             <th scope="col">Hình ảnh</th>
+                            <th scope="col">Trailer</th>
                             <th scope="col">Định dạng</th>
-                            <th scope="col">Phụ đề</th>
+                            {{-- <th scope="col">Phụ đề</th> --}}
                             <th scope="col">Thời lượng</th>
                             {{-- <th scope="col">Slug</th> --}}
                             <th scope="col">Mô tả phim</th>
-                            <th scope="col">Từ khóa</th>
+                            {{-- <th scope="col">Từ khóa</th> --}}
                             {{-- <th scope="col">Trạng thái</th>
                             <th scope="col">Danh mục</th>
                             <th scope="col">Quốc gia</th>
@@ -129,6 +138,7 @@
                             {{-- <th scope="col">Ngày tạo</th> --}}
                             <th scope="col">Ngày cập nhật</th>
                             <th scope="col" class="col-1">Năm phim</th>
+                            <th scope="col" class="col-1">Top views</th>
                             <th scope="col">Hành động</th>
                         </tr>
                     </thead>
@@ -139,6 +149,7 @@
                                 <th scope="row">{{ $key }}</th>
                                 <td>{{ $movie->title }}</td>
                                 <td><img width="60%" src="{{asset('/uploads/movie/'.$movie->image)}}" alt=""></td>
+                                <td>{{ $movie->trailer }}</td>
                                 <td>
                                     @if ($movie->resolution == 0)
                                         HD
@@ -150,19 +161,21 @@
                                         Cam
                                     @elseif ($movie->resolution == 4)
                                         FULLHD
+                                    @else
+                                        Trailer
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     @if ($movie->cc == 0)
                                         Phụ đề
                                     @elseif ($movie->cc == 1)
                                         Thuyết minh
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>{{ $movie->time }}</td>
                                 {{-- <td>{{ $movie->slug }}</td> --}}
                                 <td>{{ $movie->description }}</td>
-                                <td>{{ $movie->tags }}</td>
+                                {{-- <td>{{ $movie->tags }}</td> --}}
 
                                 {{-- <td>
                                     @if ($movie->status)
@@ -178,7 +191,10 @@
                                 {{-- <td>{{ $movie->create_day }}</td> --}}
                                 <td>{{ $movie->update_day }}</td>
                                 <td>
-                                    {!! Form::selectYear('year', 2010, 2022, isset($movie->year) ? $movie->year : '' , ['class' => 'select-year custom-select', 'id' => $movie->id]) !!}
+                                    {!! Form::selectYear('year', 2017, 2022, isset($movie->year) ? $movie->year : '' , ['class' => 'select-year custom-select', 'id' => $movie->id]) !!}
+                                </td>
+                                <td>
+                                    {!! Form::select('topview', ['0' => 'Ngày', '1' => 'Tuần', '2' => 'Tháng'], isset($movie) ? $movie->topview : '', ['class' => 'select-topview custom-select', 'id' => $movie->id]) !!}
                                 </td>
 
                                 <td>

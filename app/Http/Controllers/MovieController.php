@@ -24,13 +24,105 @@ class MovieController extends Controller
         //
     }
 
-    //update year
+    //TOP VIEWS
     public function update_year(Request $request)
     {
         $data           = $request->all();
         $movie          = Movie::find($data['id_movie']);
         $movie->year    = $data['year'];
         $movie->save();
+    }
+
+    public function update_topview(Request $request)
+    {
+        $data               = $request->all();
+        $movie              = Movie::find($data['id_movie']);
+        $movie->topview     = $data['topview'];
+        $movie->save();
+    }
+
+    // public function filter_default(Request $request)
+    // {
+    //     $data               = $request->all();
+    //     $movie              = Movie::where('topview',0)->orderBy('update_day', 'DESC')->take(6)->get();
+    //     $output             = '';
+
+    //     print_r($movie);
+
+    //     foreach ($movie as $key => $mov) {
+    //         if ($mov->resolution == 0) {
+    //             $text = 'HD';
+    //         } else if ($mov->resolution == 1) {
+    //             $text = 'SD';
+    //         } else if ($mov->resolution == 2) {
+    //             $text = 'HDCam';
+    //         } else if ($mov->resolution == 3) {
+    //             $text = 'Cam';
+    //         } else if ($mov->resolution == 4) {
+    //             $text = 'FullHD';
+    //         } else $text = 'Trailer';
+
+    //         $output .=
+    //             '<div class="item post-37176">
+    //                 <a href="'.url('phim/'.$mov->slug).'" title="'.$mov->title.'">
+    //                     <div class="item-link">
+    //                         <img src="'.url('uploads/movie/'.$mov->image).'" class="lazy post-thumb" alt="'.$mov->title.'"
+    //                             title="'.$mov->title.'" />
+    //                         <span class="is_trailer">'.$text.'</span>
+    //                     </div>
+    //                     <p class="title">'.$mov->title.'</p>
+    //                 </a>
+    //                 <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
+    //                 <div style="float: left;">
+    //                     <span class="user-rate-image post-large-rate stars-large-vang"
+    //                         style="display: block;/* width: 100%; */">
+    //                         <span style="width: 0%"></span>
+    //                     </span>
+    //                 </div>
+    //             </div>';
+    //     }
+    //     echo $output;
+    // }
+
+    public function filter_topview(Request $request)
+    {
+        $data               = $request->all();
+        $movie              = Movie::where('topview', $data['value'])->orderBy('update_day', 'DESC')->take(6)->get();
+        $output             = '';
+
+        foreach ($movie as $key => $mov) {
+            if ($mov->resolution == 0) {
+                $text = 'HD';
+            } else if ($mov->resolution == 1) {
+                $text = 'SD';
+            } else if ($mov->resolution == 2) {
+                $text = 'HDCam';
+            } else if ($mov->resolution == 3) {
+                $text = 'Cam';
+            } else if ($mov->resolution == 4){
+                $text = 'FullHD';
+            } else $text = 'Trailer';
+
+            $output .=
+                '<div class="item post-37176">
+                    <a href="'.url('phim/'.$mov->slug).'" title="'.$mov->title.'">
+                        <div class="item-link">
+                            <img src="'.url('uploads/movie/'.$mov->image).'" class="lazy post-thumb" alt="'.$mov->title.'"
+                                title="'.$mov->title.'" />
+                            <span class="is_trailer">'.$text.'</span>
+                        </div>
+                        <p class="title">'.$mov->title.'</p>
+                    </a>
+                    <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
+                    <div style="float: left;">
+                        <span class="user-rate-image post-large-rate stars-large-vang"
+                            style="display: block;/* width: 100%; */">
+                            <span style="width: 0%"></span>
+                        </span>
+                    </div>
+                </div>';
+        }
+        echo $output;
     }
 
     /**
@@ -74,6 +166,8 @@ class MovieController extends Controller
         $movie->update_day  = Carbon::now('Asia/Ho_Chi_Minh');
         $movie->time        = $data['time'];
         $movie->tags        = $data['tags'];
+        $movie->movie_hot   = $data['movie_hot'];
+        $movie->trailer     = $data['trailer'];
 
         //add image
         $get_image = $request->file('image');
@@ -145,6 +239,8 @@ class MovieController extends Controller
         $movie->update_day  = Carbon::now('Asia/Ho_Chi_Minh');
         $movie->time        = $data['time'];
         $movie->tags        = $data['tags'];
+        $movie->movie_hot   = $data['movie_hot'];
+        $movie->trailer     = $data['trailer'];
 
         //delete old image then update new image
         $get_image = $request->file('image');

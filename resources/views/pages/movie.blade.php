@@ -37,16 +37,23 @@
                             </div>
                         </div>
                         <div class="movie_info col-xs-12">
+
                             <div class="movie-poster col-md-3">
                                 <img class="movie-thumb" src="{{ asset('uploads/movie/' . $movie->image) }}"
                                     alt="{{ $movie->title }}">
+
+                                @if ($movie->resolution != 5)
                                 <div class="bwa-content">
                                     <div class="loader"></div>
                                     <a href="{{ route('watch') }}" class="bwac-btn">
                                         <i class="fa fa-play"></i>
                                     </a>
                                 </div>
+                                @else
+                                    <a href="#trailer_movie" style="display: block;" class="btn btn-primary">Xem trailer</a>
+                                @endif
                             </div>
+
                             <div class="film-poster col-md-9">
                                 <h1 class="movie-title title-1"
                                     style="display:block;line-height:35px;margin-bottom: -14px;color: #ffed4d;text-transform: uppercase;font-size: 18px;">
@@ -64,14 +71,20 @@
                                                 Cam
                                             @elseif ($movie->resolution == 4)
                                                 FULLHD
+                                            @else
+                                                Trailer
                                             @endif
-                                        </span><span class="episode">
+                                        </span>
+                                        @if($movie->resolution != 5)
+                                        <span class="episode">
                                             @if ($movie->cc == 0)
                                                 Phụ đề
                                             @elseif ($movie->cc == 1)
                                                 Thuyết minh
                                             @endif
-                                        </span></li>
+                                        </span>
+                                        @endif
+                                    </li>
                                     {{-- <li class="list-info-group-item"><span>Điểm IMDb</span> : <span class="imdb">7.2</span></li> --}}
                                     <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->time }}</li>
                                     <li class="list-info-group-item"><span>Thể loại</span> :
@@ -110,6 +123,8 @@
                     <div class="clearfix"></div>
                     <div id="halim_trailer"></div>
                     <div class="clearfix"></div>
+
+                    {{-- Nội dung phim  --}}
                     <div class="section-bar clearfix">
                         <h2 class="section-title"><span style="color:#ffed4d">Nội dung phim</span></h2>
                     </div>
@@ -120,6 +135,8 @@
                             </article>
                         </div>
                     </div>
+
+                    {{-- Từ khóa  --}}
                     <div class="section-bar clearfix">
                         <h2 class="section-title"><span style="color:#ffed4d">Từ khóa</span></h2>
                     </div>
@@ -139,6 +156,19 @@
                             </article>
                         </div>
                     </div>
+
+                    {{-- trailer  --}}
+                    <div class="section-bar clearfix" id="trailer_movie">
+                        <h2 class="section-title"><span style="color:#ffed4d">Trailer phim</span></h2>
+                    </div>
+                    <div class="entry-content htmlwrap clearfix">
+                        <div class="video-item halim-entry-box">
+                            <article id="post-38424" class="item-content">
+                                <iframe width="100%" height="400" src="https://www.youtube.com/embed/{{$movie->trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </article>
+                        </div>
+                    </div>
+
                 </div>
             </section>
             <section class="related-movies">
@@ -168,8 +198,12 @@
                                                 Cam
                                             @elseif ($mov_related->resolution == 4)
                                                 FULLHD
+                                            @else
+                                                Trailer
                                             @endif
                                         </span>
+
+                                        @if($mov_related->resolution != 5)
                                         <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
                                             @if ($mov_related->cc == 0)
                                                 Phụ đề
@@ -177,6 +211,8 @@
                                                 Thuyết minh
                                             @endif
                                         </span>
+                                        @endif
+
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
@@ -224,6 +260,7 @@
                 </div>
             </section>
         </main>
-        <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4"></aside>
+        {{-- sidebar  --}}
+        @include('pages.include.sidebar')
     </div>
 @endsection

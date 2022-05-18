@@ -144,9 +144,9 @@
                                 <a title="Năm phim" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">Năm phim <span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    @for ($year = 2010; $year <= 2022; $year++)
+                                    @for ($year = 2017; $year <= 2022; $year++)
                                         <li><a title="{{ $year }}"
-                                                href="{{ url('nam/'.$year) }}">{{ $year }}</a>
+                                                href="{{ url('nam/' . $year) }}">{{ $year }}</a>
                                         </li>
                                     @endfor
                                 </ul>
@@ -218,6 +218,55 @@
     <script type='text/javascript' src='{{ asset('js/halimtheme-core.min.js?ver=1626273138') }}' id='halim-init-js'>
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // $('.filter-sidebar').load(function() {
+            //     $.ajax({
+            //         url: "{{ url('/filter-topview-movie') }}",
+            //         method: "GET",
+            //         data: {
+            //             value: 0,
+            //         },
+
+            //         success: function(data) {
+            //             $('#show0').html(data);
+            //         }
+            //     });
+            // });
+
+            $('.filter-sidebar').click(function() {
+                let href = $(this).attr('href');
+                let value;
+
+                if (href == '#day') {
+                    value = 0;
+                } else if (href == '#week') {
+                    value = 1;
+                } else {
+                    value = 2;
+                }
+
+                $.ajax({
+                    // URL muốn sử dụng AJAX để thực hiện request
+                    url: "{{ url('/filter-topview-movie') }}",
+
+                    //Kiểu request muốn thực hiện
+                    type: "GET",
+
+                    //Dữ liệu được gửi lên server khi thực thi một request Ajax.
+                    data: {
+                        value: value
+                    },
+
+                    //Một hàm được gọi khi request thành công.
+                    success: function(data) {
+                        $('#show' + value).html(data);
+                    }
+                });
+            });
+        })
+    </script>
+
     <script>
         jQuery(document).ready(function($) {
             let owl = $('#halim_related_movies-2');
@@ -249,9 +298,6 @@
             })
         });
     </script>
-
-
-
 
     <style>
         #overlay_mb {

@@ -111,7 +111,7 @@
 
             $.ajax({
                 // URL muốn sử dụng AJAX để thực hiện request
-                url: "{{url('/update-year-phim')}}",
+                url: "{{url('/update-year-movie')}}",
 
                 //Kiểu request muốn thực hiện
                 type: "GET",
@@ -125,6 +125,40 @@
                 //Một hàm được gọi khi request thành công.
                 success: function(){
                     alert('Thay đổi năm phim theo năm ' + year + ' thành công!');
+                }
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        $('.select-topview').change(function(){
+            let topview = $(this).find(':selected').val();
+            let id_movie = $(this).attr('id');
+
+            let text;
+            if(topview == '0'){
+               text = 'Ngày';
+            } else if(topview == '1'){
+               text = 'Tuần';
+            } else {
+               text = 'Tháng';
+            }
+
+            $.ajax({
+                // URL muốn sử dụng AJAX để thực hiện request
+                url: "{{url('/update-topview-movie')}}",
+
+                //Kiểu request muốn thực hiện
+                type: "GET",
+
+                //Dữ liệu được gửi lên server khi thực thi một request Ajax.
+                data: {
+                    topview: topview,
+                    id_movie: id_movie
+                },
+
+                //Một hàm được gọi khi request thành công.
+                success: function(){
+                    alert('Thay đổi phim theo topview ' + text + ' thành công!');
                 }
             });
         })
