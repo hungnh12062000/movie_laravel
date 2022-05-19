@@ -54,6 +54,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('homeadmin');
 Route::get('/nam/{year}', [IndexController::class, 'year']);
 Route::get('/tag/{tag}', [IndexController::class, 'tag']);
+Route::get('/search', [IndexController::class, 'search'])->name('search');
 
 //Admin
 Route::prefix('/')->group(function () {

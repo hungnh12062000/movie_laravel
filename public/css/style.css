@@ -15,6 +15,12 @@ body.halimthemes {
     overflow-x: hidden;
     background: #222d38 url(assets/images/halimBg.png) fixed center;
 }
+
+.fb-background-color {
+    background: #fff !important;
+    color: #dcdcdc;
+}
+
 a {
     color: #87c3f9;
 }
@@ -135,6 +141,12 @@ img:hover {
     margin: 10px 0 -10px;
     overflow: hidden;
 }
+
+.input-search{
+    display: flex;
+    gap: 10px;
+}
+
 .navbar {
     min-height: 48px !important;
     margin: 0;
@@ -215,6 +227,12 @@ img:hover {
 .panel-body {
     padding: 15px;
 }
+
+.heading-category{
+    display: flex;
+    justify-content: space-between;
+}
+
 .section-heading {
     padding: 0 6px 0 0;
     margin: 21px 0 15px;
@@ -1446,7 +1464,6 @@ tr.title {
     .grid-item img {
         height: 240px;
     }
-
 }
 @media only screen and (max-width: 780px) {
     .grid-item img {
@@ -1457,13 +1474,11 @@ tr.title {
     }
 }
 @media only screen and (max-width: 768px) {
-
 }
 @media only screen and (max-width: 740px) {
     .grid-item img {
         height: 470px;
     }
-
 }
 @media only screen and (max-width: 720px) {
     .grid-item img {
@@ -1477,73 +1492,61 @@ tr.title {
     .grid-item img {
         height: 390px;
     }
-
 }
 @media only screen and (max-width: 620px) {
     .grid-item img {
         height: 320px;
     }
-
 }
 @media only screen and (max-width: 600px) {
     .grid-item img {
         height: 350px;
     }
-
 }
 @media only screen and (max-width: 568px) {
     .grid-item img {
         height: 320px;
     }
-
 }
 @media only screen and (max-width: 563px) {
     .grid-item img {
         height: 320px;
     }
-
 }
 @media only screen and (max-width: 549px) {
     .grid-item img {
         height: 345px;
     }
-
 }
 @media only screen and (max-width: 534px) {
     .grid-item img {
         height: 320px;
     }
-
 }
 @media only screen and (max-width: 480px) {
     .grid-item img {
         height: 240px;
     }
-
 }
 @media only screen and (max-width: 360px) {
     .grid-item img {
         height: 230px;
     }
-
 }
 @media only screen and (max-width: 338px) {
     .grid-item img {
         height: 215px;
     }
-
 }
 @media only screen and (max-width: 330px) {
     .grid-item img {
         height: 190px;
     }
-
 }
 @media only screen and (max-width: 320px) {
     .grid-item img {
         height: 200px;
     }
-
 }
 @media (max-width: 767px) {
     .col-xs-12.carousel-sliderWidget {
@@ -1610,8 +1613,7 @@ tr.title {
     opacity: 0;
     -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0) scale(1, 1);
+
 }
 .grid-item:hover .icon_overlay,
 .slider-thumb:hover .icon_overlay {
@@ -3651,8 +3653,7 @@ a .hl-dot-3 {
 .ui-autocomplete li.exact_result .date {
     color: #fff;
 }
-.ui-autocomplete li.exact_result .image {
-}
+
 .ui-autocomplete li .halim_list_item {
     overflow: hidden;
 }
@@ -4821,8 +4822,8 @@ span.ajax-update-eps:hover {
     background-color: #4d7496;
 }
 @media (max-width: 767px) {
-    .home.halim-light-mode .main-navigation .navbar-nav >;
-    .active >;
+    .home.halim-light-mode .main-navigation .navbar-nav >
+    .active >
     a {
         display: none;
     }

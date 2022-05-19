@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header font-weight-bold">Quản lý phim</div>
+                    <div class="card-header font-weight-bold">Quản lý phim <a href="{{route('movie.index')}}" class="btn btn-primary">Danh sách phim</a></div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -129,12 +129,12 @@
                             {{-- <th scope="col">Phụ đề</th> --}}
                             <th scope="col">Thời lượng</th>
                             {{-- <th scope="col">Slug</th> --}}
-                            <th scope="col">Mô tả phim</th>
+                            {{-- <th scope="col">Mô tả phim</th> --}}
                             {{-- <th scope="col">Từ khóa</th> --}}
-                            {{-- <th scope="col">Trạng thái</th>
+                            <th scope="col">Trạng thái</th>
                             <th scope="col">Danh mục</th>
                             <th scope="col">Quốc gia</th>
-                            <th scope="col">Thể loại</th> --}}
+                            <th scope="col">Thể loại</th>
                             {{-- <th scope="col">Ngày tạo</th> --}}
                             <th scope="col">Ngày cập nhật</th>
                             <th scope="col" class="col-1">Năm phim</th>
@@ -174,10 +174,10 @@
                                 </td> --}}
                                 <td>{{ $movie->time }}</td>
                                 {{-- <td>{{ $movie->slug }}</td> --}}
-                                <td>{{ $movie->description }}</td>
+                                {{-- <td>{{ $movie->description }}</td> --}}
                                 {{-- <td>{{ $movie->tags }}</td> --}}
 
-                                {{-- <td>
+                                <td>
                                     @if ($movie->status)
                                         Hiển thị
                                     @else
@@ -187,7 +187,7 @@
 
                                 <td>{{ $movie->category->title }}</td>
                                 <td>{{ $movie->country->title }}</td>
-                                <td>{{ $movie->genre->title }}</td> --}}
+                                <td>{{ $movie->genre->title }}</td>
                                 {{-- <td>{{ $movie->create_day }}</td> --}}
                                 <td>{{ $movie->update_day }}</td>
                                 <td>

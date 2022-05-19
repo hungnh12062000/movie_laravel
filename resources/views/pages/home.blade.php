@@ -58,9 +58,12 @@
             @foreach ($category_home as $key => $cate_home)
                 {{-- loop 3 category --}}
                 <section id="halim-advanced-widget-2">
-                    <div class="section-heading">
-                        <a href="danhmuc.php" title="{{ $cate_home->title }}">
+                    <div class="section-heading heading-category">
+                        <div>
                             <span class="h-text">{{ $cate_home->title }}</span>
+                        </div>
+                        <a href="{{ route('category', $cate_home->slug) }}" title="{{ $cate_home->title }}">
+                            <span class="h-text">Xem tất cả</span>
                         </a>
                     </div>
                     <div id="halim-advanced-widget-2-ajax-box" class="halim_box">

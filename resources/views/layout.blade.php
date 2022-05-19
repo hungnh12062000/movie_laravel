@@ -63,22 +63,40 @@
                             title="phim hay ">Phim Hay</p>
                     </a>
                 </div>
+
                 <div class="col-md-5 col-sm-6 halim-search-form hidden-xs">
                     <div class="header-nav">
                         <div class="col-xs-12">
-                            <form id="search-form-pc" name="halimForm" role="search" action="" method="GET">
-                                <div class="form-group">
-                                    <div class="input-group col-xs-12">
-                                        <input id="search" type="text" name="s" class="form-control"
+                            <style type="text/css">
+                                ul#result {
+                                    position: absolute;
+                                    z-index: 9999;
+                                    background: #1b2d3c;
+                                    width: 94%;
+                                    padding: 10px;
+                                    margin: 1px;
+                                    border: 2px solid #000;
+                                    border-top: 1px solid transparent;
+                                }
+
+                            </style>
+                            <div class="form-group form-search">
+                                <div class="input-group col-xs-12">
+                                    <form action="{{ route('search') }}" method="GET" class="input-search">
+                                        <input id="search" type="text" name="search" class="form-control"
                                             placeholder="Tìm kiếm..." autocomplete="off" required>
-                                        <i class="animate-spin hl-spin4 hidden"></i>
-                                    </div>
+                                        {{-- <i class="animate-spin hl-spin4 hidden"></i> --}}
+                                        <button class="btn btn-primary">Tìm kiếm</button>
+                                    </form>
                                 </div>
-                            </form>
-                            <ul class="ui-autocomplete ajax-results hidden"></ul>
+                            </div>
+
+                            <ul class="list-group" id="result" style="display: none;">
+                            </ul>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4 hidden-xs">
                     <div id="get-bookmark" class="box-shadow"><i class="hl-bookmark"></i><span>
                             Bookmarks</span><span class="count">0</span></div>
@@ -118,10 +136,10 @@
                     <div class="menu-menu_1-container">
                         <ul id="menu-menu_1" class="nav navbar-nav navbar-left">
                             <li class="current-menu-item active"><a title="Trang Chủ"
-                                    href="{{ route('homepage') }}">Trang Chủ</a></li>
+                                    href="{{ route('homepage') }}">TRANG CHỦ</a></li>
                             <li class="mega dropdown">
                                 <a title="Thể Loại" href="#" data-toggle="dropdown" class="dropdown-toggle"
-                                    aria-haspopup="true">Thể Loại <span class="caret"></span></a>
+                                    aria-haspopup="true">THỂ LOẠI<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     @foreach ($genre as $key => $gen)
                                         <li><a title="{{ $gen->title }}"
@@ -131,7 +149,7 @@
                             </li>
                             <li class="mega dropdown">
                                 <a title="Quốc Gia" href="#" data-toggle="dropdown" class="dropdown-toggle"
-                                    aria-haspopup="true">Quốc Gia <span class="caret"></span></a>
+                                    aria-haspopup="true">QUỐC GIA<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     @foreach ($country as $key => $coun)
                                         <li><a title="{{ $coun->title }}"
@@ -142,7 +160,7 @@
                             </li>
                             <li class="mega dropdown">
                                 <a title="Năm phim" href="#" data-toggle="dropdown" class="dropdown-toggle"
-                                    aria-haspopup="true">Năm phim <span class="caret"></span></a>
+                                    aria-haspopup="true">NĂM PHIM<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     @for ($year = 2017; $year <= 2022; $year++)
                                         <li><a title="{{ $year }}"
@@ -152,7 +170,8 @@
                                 </ul>
                             </li>
                             @foreach ($category as $key => $cate)
-                                <li class="mega"><a title="{{ $cate->title }}"
+                                <li class="mega" style="text-transform: uppercase;"><a
+                                        title="{{ $cate->title }}"
                                         href="{{ route('category', $cate->slug) }}">{{ $cate->title }}</a></li>
                             @endforeach
                             {{-- <li class="mega dropdown">
@@ -171,7 +190,7 @@
                         </ul>
                     </div>
                     <ul class="nav navbar-nav navbar-left" style="background:#000;">
-                        <li><a href="#" onclick="locphim()" style="color: #ffed4d;">Lọc Phim</a></li>
+                        <li><a href="#" onclick="locphim()" style="color: #ffed4d;">LỌC PHIM</a></li>
                     </ul>
                 </div>
             </nav>
@@ -215,25 +234,57 @@
     <script type='text/javascript' src='{{ asset('js/bootstrap.min.js') }}' id='bootstrap-js'></script>
     <script type='text/javascript' src='{{ asset('js/owl.carousel.min.') }}js' id='carousel-js'></script>
 
+    {{-- facebook comment --}}
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=480748059834774&autoLogAppEvents=1"
+        nonce="IulYdjEA"></script>
+
     <script type='text/javascript' src='{{ asset('js/halimtheme-core.min.js?ver=1626273138') }}' id='halim-init-js'>
     </script>
 
+    {{-- search --}}
     <script type="text/javascript">
         $(document).ready(function() {
-            // $('.filter-sidebar').load(function() {
-            //     $.ajax({
-            //         url: "{{ url('/filter-topview-movie') }}",
-            //         method: "GET",
-            //         data: {
-            //             value: 0,
-            //         },
+            $('#search').keyup(function() {
+                $('#result').html('');
+                var search = $('#search').val();
 
-            //         success: function(data) {
-            //             $('#show0').html(data);
-            //         }
-            //     });
-            // });
+                if (search != '') { // 0 empty thì search
+                    $('#result').css('display', 'inherit');
+                    var expression = new RegExp(search, 'i'); // => /search_val/i
+                    $.getJSON('/json_file/movies.json', function(data) {
+                        $.each(data, function(key, value) {
+                            if (value.title.search(expression) != -1) {
+                                $('#result').append(
+                                    '<li style="cursor:pointer; display: flex; max-height: 200px;" class="list-group-item link-class"><img src="uploads/movie/' +
+                                    value.image +
+                                    '" width="100" class="" style="margin-right: 8px;"/><div style="flex-direction: column; margin-left: 2px;"><h4 width="100%">' +
+                                    value.title +
+                                    '</h4><span style="display: -webkit-box; max-height: 8.2rem; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-line-clamp: 5; line-height: 1.6rem;" class="text-muted">| ' +
+                                    value.description + '</span></div></li>');
+                            }
+                        });
+                    })
+                } else {
+                    $('#result').css('display', 'none');
+                }
+            });
 
+            $('#result').on('click', 'li', function() {
+                var click_text = $(this).text().split('|');
+
+                $('#search').val($.trim(click_text[0])); //title
+                $("#result").html('');
+                $('#result').css('display', 'none');
+            });
+        })
+    </script>
+
+
+    {{-- slider --}}
+    <script type="text/javascript">
+        $(document).ready(function() {
             $('.filter-sidebar').click(function() {
                 let href = $(this).attr('href');
                 let value;

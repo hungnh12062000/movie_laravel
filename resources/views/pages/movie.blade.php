@@ -43,12 +43,12 @@
                                     alt="{{ $movie->title }}">
 
                                 @if ($movie->resolution != 5)
-                                <div class="bwa-content">
-                                    <div class="loader"></div>
-                                    <a href="{{ route('watch') }}" class="bwac-btn">
-                                        <i class="fa fa-play"></i>
-                                    </a>
-                                </div>
+                                    <div class="bwa-content">
+                                        <div class="loader"></div>
+                                        <a href="{{ route('watch') }}" class="bwac-btn">
+                                            <i class="fa fa-play"></i>
+                                        </a>
+                                    </div>
                                 @else
                                     <a href="#trailer_movie" style="display: block;" class="btn btn-primary">Xem trailer</a>
                                 @endif
@@ -75,14 +75,14 @@
                                                 Trailer
                                             @endif
                                         </span>
-                                        @if($movie->resolution != 5)
-                                        <span class="episode">
-                                            @if ($movie->cc == 0)
-                                                Phụ đề
-                                            @elseif ($movie->cc == 1)
-                                                Thuyết minh
-                                            @endif
-                                        </span>
+                                        @if ($movie->resolution != 5)
+                                            <span class="episode">
+                                                @if ($movie->cc == 0)
+                                                    Phụ đề
+                                                @elseif ($movie->cc == 1)
+                                                    Thuyết minh
+                                                @endif
+                                            </span>
                                         @endif
                                     </li>
                                     {{-- <li class="list-info-group-item"><span>Điểm IMDb</span> : <span class="imdb">7.2</span></li> --}}
@@ -124,57 +124,86 @@
                     <div id="halim_trailer"></div>
                     <div class="clearfix"></div>
 
-                    {{-- Nội dung phim  --}}
+                    {{-- Nội dung phim --}}
                     <div class="section-bar clearfix">
                         <h2 class="section-title"><span style="color:#ffed4d">Nội dung phim</span></h2>
                     </div>
                     <div class="entry-content htmlwrap clearfix">
                         <div class="video-item halim-entry-box">
-                            <article id="post-38424" class="item-content">
+                            <article id="post-38424" class="item-content" style="text-align: justify;">
                                 {{ $movie->description }}
                             </article>
                         </div>
                     </div>
+                    {{-- Nội dung phim end --}}
 
-                    {{-- Từ khóa  --}}
+                    {{-- Từ khóa --}}
                     <div class="section-bar clearfix">
                         <h2 class="section-title"><span style="color:#ffed4d">Từ khóa</span></h2>
                     </div>
                     <div class="entry-content htmlwrap clearfix">
                         <div class="video-item halim-entry-box">
                             <article id="post-38424" class="item-content">
-                                @if($movie->tags != null)
+                                @if ($movie->tags != null)
                                     @php
-                                        $tags = array();
-                                        $tags = explode(',',$movie->tags);
+                                        $tags = [];
+                                        $tags = explode(',', $movie->tags);
                                         // print_r($tags);
                                     @endphp
-                                    @foreach ($tags as $key => $tag )
-                                    <a href="{{url('tag/'.$tag)}}">{{ $tag }}</a>
+                                    @foreach ($tags as $key => $tag)
+                                        <a href="{{ url('tag/' . $tag) }}">{{ $tag }}</a>
                                     @endforeach
                                 @endif
                             </article>
                         </div>
                     </div>
+                    {{-- Từ khóa end --}}
 
-                    {{-- trailer  --}}
-                    <div class="section-bar clearfix" id="trailer_movie">
-                        <h2 class="section-title"><span style="color:#ffed4d">Trailer phim</span></h2>
+                    {{-- trailer --}}
+                    @if ($movie->trailer)
+                        <div class="section-bar clearfix" id="trailer_movie">
+                            <h2 class="section-title"><span style="color:#ffed4d">Trailer phim</span></h2>
+                        </div>
+                        <div class="entry-content htmlwrap clearfix">
+                            <div class="video-item halim-entry-box">
+                                <article id="post-38424" class="item-content">
+                                    <iframe width="100%" height="400"
+                                        src="https://www.youtube.com/embed/{{ $movie->trailer }}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                </article>
+                            </div>
+                        </div>
+                    @endif
+                    {{-- trailer end --}}
+
+                    {{-- Bình luận --}}
+                    <div class="section-bar clearfix">
+                        <h2 class="section-title"><span style="color:#ffed4d">Bình luận</span></h2>
                     </div>
                     <div class="entry-content htmlwrap clearfix">
+                        @php
+                            $current_url = Request::url(); //get url current page
+                        @endphp
                         <div class="video-item halim-entry-box">
-                            <article id="post-38424" class="item-content">
-                                <iframe width="100%" height="400" src="https://www.youtube.com/embed/{{$movie->trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <article id="post-38424" class="item-content fb-background-color">
+                                <div class="fb-comments" data-href="{{ $current_url }}" data-width="100%"
+                                    data-numposts="10"></div>
                             </article>
                         </div>
                     </div>
+                    {{-- Bình luận end --}}
+
 
                 </div>
             </section>
+
+            {{-- movie related start --}}
             <section class="related-movies">
                 <div id="halim_related_movies-2xx" class="wrap-slider">
                     <div class="section-bar clearfix">
-                        <h3 class="section-title"><span>CÓ THỂ BẠN MUỐN XEM</span></h3>
+                        <h3 class="section-title"><span>CÓ THỂ BẠN CŨNG MUỐN XEM</span></h3>
                     </div>
                     <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
 
@@ -183,10 +212,12 @@
                                 <div class="halim-item">
                                     <a class="halim-thumb" href="{{ route('movie', $mov_related->slug) }}"
                                         title="{{ $mov_related->title }}">
+
                                         <figure><img class="lazy img-responsive"
                                                 src="{{ asset('uploads/movie/' . $mov_related->image) }}"
                                                 alt="{{ $mov_related->title }}" title="{{ $mov_related->title }}">
                                         </figure>
+
                                         <span class="status">
                                             @if ($mov_related->resolution == 0)
                                                 HD
@@ -203,14 +234,14 @@
                                             @endif
                                         </span>
 
-                                        @if($mov_related->resolution != 5)
-                                        <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
-                                            @if ($mov_related->cc == 0)
-                                                Phụ đề
-                                            @elseif ($mov_related->cc == 1)
-                                                Thuyết minh
-                                            @endif
-                                        </span>
+                                        @if ($mov_related->resolution != 5)
+                                            <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                                @if ($mov_related->cc == 0)
+                                                    Phụ đề
+                                                @elseif ($mov_related->cc == 1)
+                                                    Thuyết minh
+                                                @endif
+                                            </span>
                                         @endif
 
                                         <div class="icon_overlay"></div>
@@ -220,6 +251,7 @@
                                                 <p class="original_title">{{ $mov_related->name_eng }}</p>
                                             </div>
                                         </div>
+
                                     </a>
                                 </div>
                             </article>
@@ -259,8 +291,10 @@
                     </script>
                 </div>
             </section>
+            {{-- movie related end --}}
+
         </main>
-        {{-- sidebar  --}}
+        {{-- sidebar --}}
         @include('pages.include.sidebar')
     </div>
 @endsection

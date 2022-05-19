@@ -11,6 +11,7 @@ use App\Models\Genre;
 // Xử lý datetime trong Laravel
 use Carbon\Carbon;
 
+use File;
 
 class MovieController extends Controller
 {
@@ -21,7 +22,15 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $list       = Movie::with('category', 'country', 'genre')->orderBy('id', 'DESC')->get();
+        $path       = public_path().'/json_file';
+        if(!is_dir($path)){
+            mkdir($path, 07777, true); //create folder json_file và cấp quyền thêm sửa xóa
+        }
+
+        File::put($path.'/movies.json', json_encode($list));
+
+        return view('admin.movie.index', compact('list'));
     }
 
     //TOP VIEWS
@@ -41,89 +50,6 @@ class MovieController extends Controller
         $movie->save();
     }
 
-    // public function filter_default(Request $request)
-    // {
-    //     $data               = $request->all();
-    //     $movie              = Movie::where('topview',0)->orderBy('update_day', 'DESC')->take(6)->get();
-    //     $output             = '';
-
-    //     print_r($movie);
-
-    //     foreach ($movie as $key => $mov) {
-    //         if ($mov->resolution == 0) {
-    //             $text = 'HD';
-    //         } else if ($mov->resolution == 1) {
-    //             $text = 'SD';
-    //         } else if ($mov->resolution == 2) {
-    //             $text = 'HDCam';
-    //         } else if ($mov->resolution == 3) {
-    //             $text = 'Cam';
-    //         } else if ($mov->resolution == 4) {
-    //             $text = 'FullHD';
-    //         } else $text = 'Trailer';
-
-    //         $output .=
-    //             '<div class="item post-37176">
-    //                 <a href="'.url('phim/'.$mov->slug).'" title="'.$mov->title.'">
-    //                     <div class="item-link">
-    //                         <img src="'.url('uploads/movie/'.$mov->image).'" class="lazy post-thumb" alt="'.$mov->title.'"
-    //                             title="'.$mov->title.'" />
-    //                         <span class="is_trailer">'.$text.'</span>
-    //                     </div>
-    //                     <p class="title">'.$mov->title.'</p>
-    //                 </a>
-    //                 <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
-    //                 <div style="float: left;">
-    //                     <span class="user-rate-image post-large-rate stars-large-vang"
-    //                         style="display: block;/* width: 100%; */">
-    //                         <span style="width: 0%"></span>
-    //                     </span>
-    //                 </div>
-    //             </div>';
-    //     }
-    //     echo $output;
-    // }
-
-    public function filter_topview(Request $request)
-    {
-        $data               = $request->all();
-        $movie              = Movie::where('topview', $data['value'])->orderBy('update_day', 'DESC')->take(6)->get();
-        $output             = '';
-
-        foreach ($movie as $key => $mov) {
-            if ($mov->resolution == 0) {
-                $text = 'HD';
-            } else if ($mov->resolution == 1) {
-                $text = 'SD';
-            } else if ($mov->resolution == 2) {
-                $text = 'HDCam';
-            } else if ($mov->resolution == 3) {
-                $text = 'Cam';
-            } else if ($mov->resolution == 4){
-                $text = 'FullHD';
-            } else $text = 'Trailer';
-
-            $output .=
-                '<div class="item post-37176">
-                    <a href="'.url('phim/'.$mov->slug).'" title="'.$mov->title.'">
-                        <div class="item-link">
-                            <img src="'.url('uploads/movie/'.$mov->image).'" class="lazy post-thumb" alt="'.$mov->title.'"
-                                title="'.$mov->title.'" />
-                            <span class="is_trailer">'.$text.'</span>
-                        </div>
-                        <p class="title">'.$mov->title.'</p>
-                    </a>
-                    <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
-                    <div style="float: left;">
-                        <span class="user-rate-image post-large-rate stars-large-vang"
-                            style="display: block;/* width: 100%; */">
-                            <span style="width: 0%"></span>
-                        </span>
-                    </div>
-                </div>';
-        }
-        echo $output;
-    }
 
     /**
      * Show the form for creating a new resource.

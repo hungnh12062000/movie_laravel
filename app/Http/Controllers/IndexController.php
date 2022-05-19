@@ -16,11 +16,28 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
+    public function search(){
+        if(isset($_GET['search'])){
+            $search = $_GET['search'];
+
+            $category           = Category::orderBy('id', 'DESC')->where('status', 1)->get();
+            $movie              = Movie::where('title', 'LIKE', '%'.$search.'%')->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate    => limited
+            $movie_hot_sidebar  = Movie::where('movie_hot', 1)->where('status', 1)->orderBy('update_day', 'DESC')->take(6)->get(); //sidebar phimhot
+            $movie_hot_trailer  = Movie::where('resolution', 5)->where('status', 1)->orderBy('update_day', 'DESC')->take(6)->get(); //sidebar phim trailer
+
+            $genre              = Genre::orderBy('id', 'DESC')->get();
+            $country            = Country::orderBy('id', 'DESC')->get();
+            return view('pages.search', compact('category', 'genre', 'country', 'search', 'movie', 'movie_hot_sidebar', 'movie_hot_trailer'));
+        } else {
+            return redirect()->to('/');
+        }
+
+    }
     // controll page pages/home
     public function home(){
         $movie_hot          = Movie::where('movie_hot', 1)->where('status', 1)->get(); //phimhot slider
-        $movie_hot_sidebar  = Movie::where('movie_hot', 1)->where('status', 1)->orderBy('update_day', 'DESC')->take(10)->get(); //sidebar phimhot
-        $movie_hot_trailer  = Movie::where('resolution', 5)->where('status', 1)->orderBy('update_day', 'DESC')->take(10)->get(); //sidebar phim trailer
+        $movie_hot_sidebar  = Movie::where('movie_hot', 1)->where('status', 1)->orderBy('update_day', 'DESC')->take(6)->get(); //sidebar phimhot
+        $movie_hot_trailer  = Movie::where('resolution', 5)->where('status', 1)->orderBy('update_day', 'DESC')->take(6)->get(); //sidebar phim trailer
         $category           = Category::orderBy('id', 'DESC')->where('status', 1)->get();
         $genre              = Genre::orderBy('id', 'DESC')->get();
         $country            = Country::orderBy('id', 'DESC')->get();
@@ -35,8 +52,8 @@ class IndexController extends Controller
         $category           = Category::orderBy('id', 'DESC')->where('status', 1)->get();
         $cate_slug          = Category::where('slug', $slug)->first();
         $movie              = Movie::where('category_id', $cate_slug->id)->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate    => limited
-        $movie_hot_sidebar  = Movie::where('movie_hot', 1)->where('status', 1)->take(6)->get(); //sidebar phimhot
-        $movie_hot_trailer  = Movie::where('resolution', 5)->where('status', 1)->orderBy('update_day', 'DESC')->take(10)->get(); //sidebar phim trailer
+        $movie_hot_sidebar  = Movie::where('movie_hot', 1)->where('status', 1)->orderBy('update_day', 'DESC')->take(6)->get(); //sidebar phimhot
+        $movie_hot_trailer  = Movie::where('resolution', 5)->where('status', 1)->orderBy('update_day', 'DESC')->take(6)->get(); //sidebar phim trailer
 
         $genre              = Genre::orderBy('id', 'DESC')->get();
         $country            = Country::orderBy('id', 'DESC')->get();
