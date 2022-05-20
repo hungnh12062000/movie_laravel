@@ -87,10 +87,18 @@
                                 {!! Form::label('Country', 'Quốc gia', []) !!}
                                 {!! Form::select('country_id', $country , isset($movie) ? $movie->country_id : null, ['class' => 'form-control']) !!}
                             </div>
-                            <div class="genre" style="flex-grow: 1;">
-                                {!! Form::label('Genre', 'Thể loại', []) !!}
-                                {!! Form::select('genre_id', $genre , isset($movie) ? $movie->genre_id : null, ['class' => 'form-control']) !!}
-                            </div>
+                        </div>
+
+                        {{-- Thể loại  --}}
+                        <div class="genre" style="flex-grow: 1;">
+                            {!! Form::label('Genre', 'Thể loại', []) !!}
+                            <br>
+                            {{-- {!! Form::select('genre_id', $genre , isset($movie) ? $movie->genre_id : null, ['class' => 'form-control']) !!} --}}
+                            @foreach ($list_genre as $key => $gen )
+                                {!! Form::checkbox('genre[]', $gen->id, isset($movie) ? ((isset ($movie_genre) && $movie_genre->contains($gen->id)) ? true : false) : '') !!}  {{--  True = checked --}}
+                                {!! Form::label('genre', $gen->title, []) !!}
+                                <br>
+                            @endforeach
                         </div>
 
                         {{-- hình ảnh phim  --}}
@@ -187,7 +195,14 @@
 
                                 <td>{{ $movie->category->title }}</td>
                                 <td>{{ $movie->country->title }}</td>
-                                <td>{{ $movie->genre->title }}</td>
+
+                                <td>
+                                    @foreach ($movie->movie_genre as $gen)
+                                        <span class="badge badge-warning">{{ $gen->title }}</span>
+                                    @endforeach
+                                </td>
+
+
                                 {{-- <td>{{ $movie->create_day }}</td> --}}
                                 <td>{{ $movie->update_day }}</td>
                                 <td>

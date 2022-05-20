@@ -21,4 +21,9 @@ class Movie extends Model
         return $this->belongsTo(Genre::class, 'genre_id');
     }
 
+    //1 phim có nhiều thể loại
+    public function movie_genre (){
+        return $this->belongsToMany(Genre::class, 'movie_genre', 'movie_id', 'genre_id'); //table name and two columns
+    }
+
 }
