@@ -7,6 +7,8 @@ use App\Models\Movie;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Genre;
+use App\Models\Movie_Genre;
+use App\Models\Episode;
 
 // Xử lý datetime trong Laravel
 use Carbon\Carbon;
@@ -15,6 +17,11 @@ use File;
 
 class MovieController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->carbon = Carbon::now('Asia/Ho_Chi_Minh');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -94,13 +101,14 @@ class MovieController extends Controller
             $movie->genre_id = $gen[0];
         }
 
-        $movie->create_day  = Carbon::now('Asia/Ho_Chi_Minh');
-        $movie->update_day  = Carbon::now('Asia/Ho_Chi_Minh');
+        $movie->create_day          = $this->carbon;
+        $movie->update_day          = $this->carbon;
+        $movie->time                = $data['time'];
+        $movie->tags                = $data['tags'];
+        $movie->movie_hot           = $data['movie_hot'];
+        $movie->trailer             = $data['trailer'];
+        $movie->espisode_number     = $data['espisode_number'];
 
-        $movie->time        = $data['time'];
-        $movie->tags        = $data['tags'];
-        $movie->movie_hot   = $data['movie_hot'];
-        $movie->trailer     = $data['trailer'];
 
         //add image
         $get_image = $request->file('image');
@@ -176,12 +184,13 @@ class MovieController extends Controller
         foreach ( $data['genre'] as $key => $gen){
             $movie->genre_id = $gen[0];
         }
-        $movie->slug        = $data['slug'];
-        $movie->update_day  = Carbon::now('Asia/Ho_Chi_Minh');
-        $movie->time        = $data['time'];
-        $movie->tags        = $data['tags'];
-        $movie->movie_hot   = $data['movie_hot'];
-        $movie->trailer     = $data['trailer'];
+        $movie->slug                = $data['slug'];
+        $movie->update_day          = $this->carbon;
+        $movie->time                = $data['time'];
+        $movie->tags                = $data['tags'];
+        $movie->movie_hot           = $data['movie_hot'];
+        $movie->trailer             = $data['trailer'];
+        $movie->espisode_number     = $data['espisode_number'];
 
         //delete old image then update new image
         $get_image = $request->file('image');
@@ -214,10 +223,19 @@ class MovieController extends Controller
         $movie = Movie::find($id);
 
         //delete image when delete movie
-        if (!empty($movie->image)) {
+        if (!empty($movie->image) ) {
             unlink('uploads/movie/' . $movie->image);
         }
+
+        //xóa thể loại
+        Movie_Genre::whereIn('movie_id', [$movie->id])->delete();
+
+        //Xóa tập phim
+        Episode::whereIn('movie_id', [$movie->id])->delete();
+
+        //xóa phim
         $movie->delete();
+
         return redirect()->route('movie.create');
     }
 }

@@ -24,8 +24,9 @@ use App\Http\Controllers\EpisodeController;
 |
 */
 
-//CLIENT
+$prefixAdmin = config('web_route.url.prefix_admin');
 
+//CLIENT
 Route::prefix('/')->group(function () {
 
     //page home
@@ -44,10 +45,10 @@ Route::prefix('/')->group(function () {
     Route::get('/phim/{slug}', [IndexController::class, 'movie'])->name('movie');
 
     //page xem phim
-    Route::get('/xem-phim', [IndexController::class, 'watch'])->name('watch');
+    Route::get('/xem-phim/{slug}', [IndexController::class, 'watch'])->name('watch');
 
     //page tập phim
-    Route::get('/episode', [IndexController::class, 'episode'])->name('episode');
+    Route::get('/episode-number', [IndexController::class, 'episode'])->name('episode-number');
 });
 
 Auth::routes();
@@ -57,7 +58,7 @@ Route::get('/tag/{tag}', [IndexController::class, 'tag']);
 Route::get('/search', [IndexController::class, 'search'])->name('search');
 
 //Admin
-Route::prefix('/')->group(function () {
+Route::prefix($prefixAdmin)->group(function () {
     Route::resource('/category', CategoryController::class);
     Route::resource('/genre', GenreController::class);
     Route::resource('/country', CountryController::class);
@@ -67,6 +68,7 @@ Route::prefix('/')->group(function () {
 
 Route::get('/update-year-movie', [MovieController::class, 'update_year']);
 Route::get('/update-topview-movie', [MovieController::class, 'update_topview']);
-Route::get('/filter-topview-movie', [MovieController::class, 'filter_topview']);
+// Route::get('/filter-topview-movie', [MovieController::class, 'filter_topview']);
 // Route::get('/filter-topview-default', [MovieController::class, 'filter_default']);
+Route::get('select-movie', [EpisodeController::class, 'select_movie'])->name('select-movie');
 

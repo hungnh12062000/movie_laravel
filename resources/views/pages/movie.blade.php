@@ -7,14 +7,16 @@
                     <div class="col-xs-6">
                         <div class="yoast_breadcrumb hidden-xs">
                             <span>
-                                <span>
-                                    <a
-                                        href="{{ route('category', $movie->category->slug) }}">{{ $movie->category->title }}</a>
-                                    » <span>
-                                        <a
-                                            href="{{ route('country', $movie->country->slug) }}">{{ $movie->country->title }}</a>
-                                        » <span class="breadcrumb_last"
-                                            aria-current="page">{{ $movie->title }}</span></span></span></span>
+                                <span> <a href="{{ route('category', $movie->category->slug) }}">{{ $movie->category->title }}</a> »
+
+                                    <span>
+                                        <a href="{{ route('country', $movie->country->slug) }}">{{ $movie->country->title }}</a> »
+
+                                        <span class="breadcrumb_last" aria-current="page">{{ $movie->title }}</span>
+                                    </span>
+
+                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -45,7 +47,7 @@
                                 @if ($movie->resolution != 5)
                                     <div class="bwa-content">
                                         <div class="loader"></div>
-                                        <a href="{{ route('watch') }}" class="bwac-btn">
+                                        <a href="{{ route('watch', [$movie->slug]) }}" class="bwac-btn">
                                             <i class="fa fa-play"></i>
                                         </a>
                                     </div>
@@ -87,6 +89,7 @@
                                     </li>
                                     {{-- <li class="list-info-group-item"><span>Điểm IMDb</span> : <span class="imdb">7.2</span></li> --}}
                                     <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->time }}</li>
+                                    <li class="list-info-group-item"><span>Số tập</span> : {{ $movie->espisode_number }}/{{ $movie->espisode_number }}</li>
                                     <li class="list-info-group-item"><span>Thể loại</span> :
                                         @foreach ($movie->movie_genre as $gen )
                                             <a href="{{ route('genre', $gen->slug) }}" rel="genre tag">{{$gen->title}}</a>

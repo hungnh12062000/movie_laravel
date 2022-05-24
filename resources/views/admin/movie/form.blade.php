@@ -87,6 +87,10 @@
                                 {!! Form::label('Country', 'Quốc gia', []) !!}
                                 {!! Form::select('country_id', $country , isset($movie) ? $movie->country_id : null, ['class' => 'form-control']) !!}
                             </div>
+                            <div class="form-group-title" style="flex-grow: 1;">
+                                {!! Form::label('espisode_number', 'Số tập phim', []) !!}
+                                {!! Form::text('espisode_number', isset($movie) ? $movie->title : '', ['class' => 'form-control', 'placeholder' => 'Nhập số tập phim ...']) !!}
+                            </div>
                         </div>
 
                         {{-- Thể loại  --}}
@@ -136,6 +140,7 @@
                             <th scope="col">Định dạng</th>
                             {{-- <th scope="col">Phụ đề</th> --}}
                             <th scope="col">Thời lượng</th>
+                            <th scope="col">Số tập</th>
                             {{-- <th scope="col">Slug</th> --}}
                             {{-- <th scope="col">Mô tả phim</th> --}}
                             {{-- <th scope="col">Từ khóa</th> --}}
@@ -146,7 +151,7 @@
                             {{-- <th scope="col">Ngày tạo</th> --}}
                             <th scope="col">Ngày cập nhật</th>
                             <th scope="col" class="col-1">Năm phim</th>
-                            <th scope="col" class="col-1">Top views</th>
+                            {{-- <th scope="col" class="col-1">Top views</th> --}}
                             <th scope="col">Hành động</th>
                         </tr>
                     </thead>
@@ -181,6 +186,7 @@
                                     @endif
                                 </td> --}}
                                 <td>{{ $movie->time }}</td>
+                                <td>{{ $movie->espisode_number }}</td>
                                 {{-- <td>{{ $movie->slug }}</td> --}}
                                 {{-- <td>{{ $movie->description }}</td> --}}
                                 {{-- <td>{{ $movie->tags }}</td> --}}
@@ -208,9 +214,9 @@
                                 <td>
                                     {!! Form::selectYear('year', 2017, 2022, isset($movie->year) ? $movie->year : '' , ['class' => 'select-year custom-select', 'id' => $movie->id]) !!}
                                 </td>
-                                <td>
+                                {{-- <td>
                                     {!! Form::select('topview', ['0' => 'Ngày', '1' => 'Tuần', '2' => 'Tháng'], isset($movie) ? $movie->topview : '', ['class' => 'select-topview custom-select', 'id' => $movie->id]) !!}
-                                </td>
+                                </td> --}}
 
                                 <td>
                                     {!! Form::open(['method' => 'DELETE', 'route' => ['movie.destroy', $movie->id], 'onsubmit' => 'return confirm("Bạn có chắc chắn muốn xóa phim?")']) !!}

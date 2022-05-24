@@ -104,6 +104,31 @@
     {{-- datatable --}}
     <script type="text/javascript" src="//cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
 
+    {{-- episode  --}}
+    <script type="text/javascript">
+        $('.select_movie').change(function(){
+            var id = $(this).val();
+
+            $.ajax({
+                // URL muốn sử dụng AJAX để thực hiện request
+                url: "{{route('select-movie')}}",
+
+                //Kiểu request muốn thực hiện
+                type: "GET",
+
+                //Dữ liệu được gửi lên server khi thực thi một request Ajax.
+                data: {
+                    id: id
+                },
+
+                //Một hàm được gọi khi request thành công.
+                success: function(data){
+                    $('#show_movie').html(data);
+                }
+            });
+        });
+    </script>
+
     <script type="text/javascript">
         $('.select-year').change(function(){
             let year = $(this).find(':selected').val();

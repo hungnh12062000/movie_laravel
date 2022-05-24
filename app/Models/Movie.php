@@ -26,4 +26,10 @@ class Movie extends Model
         return $this->belongsToMany(Genre::class, 'movie_genre', 'movie_id', 'genre_id'); //table name and two columns
     }
 
+    //1 phim có nhiều tập
+    public function episode (){
+        return $this->hasMany(Episode::class);
+    }
+
+
 }
