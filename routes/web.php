@@ -45,7 +45,7 @@ Route::prefix('/')->group(function () {
     Route::get('/phim/{slug}', [IndexController::class, 'movie'])->name('movie');
 
     //page xem phim
-    Route::get('/xem-phim/{slug}', [IndexController::class, 'watch'])->name('watch');
+    Route::get('/xem-phim/{slug}/{tap}', [IndexController::class, 'watch']);
 
     //page tập phim
     Route::get('/episode-number', [IndexController::class, 'episode'])->name('episode-number');

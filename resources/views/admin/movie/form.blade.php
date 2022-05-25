@@ -80,16 +80,16 @@
                                 {!! Form::select('movie_hot', ['1' => 'Có', '0' => 'Không'] , isset($movie) ? $movie->movie_hot : null, ['class' => 'form-control']) !!}
                             </div>
                             <div class="category" style="flex-grow: 1;">
-                                {!! Form::label('Category', 'Danh mục phim', []) !!}
+                                {!! Form::label('category', 'Danh mục phim', []) !!}
                                 {!! Form::select('category_id', $category , isset($movie) ? $movie->category_id : null, ['class' => 'form-control']) !!}
                             </div>
                             <div class="country" style="flex-grow: 1;">
-                                {!! Form::label('Country', 'Quốc gia', []) !!}
+                                {!! Form::label('country', 'Quốc gia', []) !!}
                                 {!! Form::select('country_id', $country , isset($movie) ? $movie->country_id : null, ['class' => 'form-control']) !!}
                             </div>
-                            <div class="form-group-title" style="flex-grow: 1;">
-                                {!! Form::label('espisode_number', 'Số tập phim', []) !!}
-                                {!! Form::text('espisode_number', isset($movie) ? $movie->title : '', ['class' => 'form-control', 'placeholder' => 'Nhập số tập phim ...']) !!}
+                            <div class="form-group-episode_number" style="flex-grow: 1;">
+                                {!! Form::label('episode_number', 'Số tập phim', []) !!}
+                                {!! Form::text('episode_number', isset($movie) ? $movie->episode_number : '', ['class' => 'form-control', 'placeholder' => 'Nhập số tập phim ...']) !!}
                             </div>
                         </div>
 
@@ -186,7 +186,7 @@
                                     @endif
                                 </td> --}}
                                 <td>{{ $movie->time }}</td>
-                                <td>{{ $movie->espisode_number }}</td>
+                                <td>{{ $movie->episode_number }}</td>
                                 {{-- <td>{{ $movie->slug }}</td> --}}
                                 {{-- <td>{{ $movie->description }}</td> --}}
                                 {{-- <td>{{ $movie->tags }}</td> --}}

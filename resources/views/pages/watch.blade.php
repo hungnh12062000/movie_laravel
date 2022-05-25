@@ -5,7 +5,8 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-6">
-                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="#">{{ $movie->title }}</a> » <span><a
+                        <div class="yoast_breadcrumb hidden-xs"><span><span><a
+                                        href="{{ route('movie', $movie->slug) }}">{{ $movie->title }}</a> » <span><a
                                             href="{{ route('country', [$movie->country->slug]) }}">{{ $movie->country->title }}</a>
                                         » <span class="breadcrumb_last"
                                             aria-current="page">{{ $movie->title }}</span></span></span></span></div>
@@ -19,11 +20,16 @@
         <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
             <section id="content" class="test">
                 <div class="clearfix wrap-content">
+                    <style>
+                        .iframe_movie iframe {
+                            width: 100%;
+                            height: 450px;
+                        }
 
-                    {{-- {!!$movie->episode->movie_id!!} --}}
-                    @foreach ($movie->episode as $ep)
-                        {!! $ep->link_movie !!}
-                    @endforeach
+                    </style>
+                    <div class="iframe_movie">
+                        {!! $episode->link_movie !!}
+                    </div>
 
                     {{-- <div class="button-watch">
                         <ul class="halim-social-plugin col-xs-4 hidden-xs">
@@ -84,30 +90,30 @@
 
                             @if ($movie->resolution == 0)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                    role="tab" data-toggle="tab"><i class="hl-server"></i>HD</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i>HD</a></li>
                             @elseif ($movie->resolution == 1)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                    role="tab" data-toggle="tab"><i class="hl-server"></i>SD</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i>SD</a></li>
                             @elseif ($movie->resolution == 2)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                    role="tab" data-toggle="tab"><i class="hl-server"></i>HDcam</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i>HDcam</a></li>
                             @elseif ($movie->resolution == 3)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                    role="tab" data-toggle="tab"><i class="hl-server"></i>Cam</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i>Cam</a></li>
                             @elseif ($movie->resolution == 4)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                    role="tab" data-toggle="tab"><i class="hl-server"></i>FullHD</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i>FullHD</a></li>
                             @else
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                    role="tab" data-toggle="tab"><i class="hl-server"></i>Trailer</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i>Trailer</a></li>
                             @endif
 
                             @if ($movie->cc == 0)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                    role="tab" data-toggle="tab"><i class="hl-server"></i>Phụ đề</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i>Phụ đề</a></li>
                             @elseif ($movie->cc == 1)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                    role="tab" data-toggle="tab"><i class="hl-server"></i>Thuyết minh</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i>Thuyết minh</a></li>
                             @endif
                         </ul>
                         <div class="tab-content">
@@ -115,14 +121,16 @@
                                 <div class="halim-server">
                                     <ul class="halim-list-eps">
 
-                                        @foreach ($movie->episode as $key => $ep )
-                                            <a href="{{ route('episode-number') }}" class="">
+                                        @foreach ($movie->episode as $key => $ep)
+                                            <a href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $ep->episode) }}"
+                                                class="">
                                                 <li class="halim-episode"><span
-                                                        class="halim-btn halim-btn-2 {{$key == 0 ? 'active' : ''}} halim-info-1-1 box-shadow"
+                                                        class="halim-btn halim-btn-2 {{ $tapphim == $ep->episode ? 'active' : '' }} halim-info-1-1 box-shadow"
                                                         data-post-id="37976" data-server="1" data-episode="1"
                                                         data-position="first" data-embed="0"
-                                                        data-title="Xem phim {{$movie->title}} - Tập {{$ep->episode}} - {{$movie->name_eng}} - vietsub + Thuyết Minh"
-                                                        data-h1="{{$movie->title}} - tập phim {{$ep->episode}}">{{$ep->episode}}</span></li>
+                                                        data-title="Xem phim {{ $movie->title }} - Tập {{ $ep->episode }} - {{ $movie->name_eng }} - vietsub + Thuyết Minh"
+                                                        data-h1="{{ $movie->title }} - tập phim {{ $ep->episode }}">{{ $ep->episode }}</span>
+                                                </li>
                                             </a>
                                         @endforeach
 
@@ -137,30 +145,65 @@
                         <div id="lightout"></div>
                     </div>
             </section>
+
+            {{-- movie related start --}}
             <section class="related-movies">
                 <div id="halim_related_movies-2xx" class="wrap-slider">
                     <div class="section-bar clearfix">
-                        <h3 class="section-title"><span>CÓ THỂ BẠN MUỐN XEM</span></h3>
+                        <h3 class="section-title"><span>CÓ THỂ BẠN CŨNG MUỐN XEM</span></h3>
                     </div>
                     <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
-                        <article class="thumb grid-item post-38494">
-                            <div class="halim-item">
-                                <a class="halim-thumb" href="chitiet.php" title="Câu Chuyện Kinh Dị Cổ Điển">
-                                    <figure><img class="lazy img-responsive"
-                                            src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-Hp2tnGf-zNQ/YO68R-yZRcI/AAAAAAAAJqY/Nc9qNCLgBtcjeWjOEIrOW45H5Vvva4xNgCLcBGAsYHQ/s320/MV5BNzE1YjdmMWYtMDk5ZS00YzEzLWE4NjctYmFiZmIwNzU0MjQ5XkEyXkFqcGdeQXVyMTA3MDAxNDcw._V1_.jpg"
-                                            alt="Câu Chuyện Kinh Dị Cổ Điển" title="Câu Chuyện Kinh Dị Cổ Điển"></figure>
-                                    <span class="status">HD</span><span class="episode"><i
-                                            class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
-                                    <div class="icon_overlay"></div>
-                                    <div class="halim-post-title-box">
-                                        <div class="halim-post-title ">
-                                            <p class="entry-title">Câu Chuyện Kinh Dị Cổ Điển</p>
-                                            <p class="original_title">A Classic Horror Story</p>
+
+                        @foreach ($movie_related as $key => $mov_related)
+                            <article class="thumb grid-item post-38498">
+                                <div class="halim-item">
+                                    <a class="halim-thumb" href="{{ route('movie', $mov_related->slug) }}"
+                                        title="{{ $mov_related->title }}">
+
+                                        <figure><img class="lazy img-responsive"
+                                                src="{{ asset('uploads/movie/' . $mov_related->image) }}"
+                                                alt="{{ $mov_related->title }}" title="{{ $mov_related->title }}">
+                                        </figure>
+
+                                        <span class="status">
+                                            @if ($mov_related->resolution == 0)
+                                                HD
+                                            @elseif ($mov_related->resolution == 1)
+                                                SD
+                                            @elseif ($mov_related->resolution == 2)
+                                                HDCam
+                                            @elseif ($mov_related->resolution == 3)
+                                                Cam
+                                            @elseif ($mov_related->resolution == 4)
+                                                FULLHD
+                                            @else
+                                                Trailer
+                                            @endif
+                                        </span>
+
+                                        @if ($mov_related->resolution != 5)
+                                            <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                                @if ($mov_related->cc == 0)
+                                                    Phụ đề
+                                                @elseif ($mov_related->cc == 1)
+                                                    Thuyết minh
+                                                @endif
+                                            </span>
+                                        @endif
+
+                                        <div class="icon_overlay"></div>
+                                        <div class="halim-post-title-box">
+                                            <div class="halim-post-title ">
+                                                <p class="entry-title">{{ $mov_related->title }}</p>
+                                                <p class="original_title">{{ $mov_related->name_eng }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </article>
+
+                                    </a>
+                                </div>
+                            </article>
+                        @endforeach
+
                     </div>
                     <script>
                         jQuery(document).ready(function($) {
@@ -195,6 +238,7 @@
                     </script>
                 </div>
             </section>
+            {{-- movie related end --}}
         </main>
         {{-- sidebar --}}
         @include('pages.include.sidebar')

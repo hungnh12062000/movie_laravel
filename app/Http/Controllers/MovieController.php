@@ -17,6 +17,7 @@ use File;
 
 class MovieController extends Controller
 {
+    private $path_view_controller = 'admin.movie.';
 
     public function __construct()
     {
@@ -39,7 +40,7 @@ class MovieController extends Controller
 
         File::put($path.'/movies.json', json_encode($list));
 
-        return view('admin.movie.index', compact('list'));
+        return view($this->path_view_controller . 'index', compact('list'));
     }
 
     //TOP VIEWS
@@ -74,7 +75,7 @@ class MovieController extends Controller
         $list_genre = Genre::all();
 
         $list       = Movie::with('category', 'country', 'movie_genre', 'genre')->orderBy('id', 'DESC')->get();
-        return view('admin.movie.form', compact('list', 'category', 'country', 'genre', 'list_genre'));
+        return view($this->path_view_controller . 'form', compact('list', 'category', 'country', 'genre', 'list_genre'));
     }
 
     /**
@@ -107,7 +108,7 @@ class MovieController extends Controller
         $movie->tags                = $data['tags'];
         $movie->movie_hot           = $data['movie_hot'];
         $movie->trailer             = $data['trailer'];
-        $movie->espisode_number     = $data['espisode_number'];
+        // $movie->episode_number      = $data['episode_number']; //check
 
 
         //add image
@@ -157,7 +158,7 @@ class MovieController extends Controller
 
         $movie          = Movie::find($id);
         $movie_genre    = $movie->movie_genre;
-        return view('admin.movie.form', compact('list', 'category', 'country', 'genre', 'movie', 'list_genre', 'movie_genre'));
+        return view($this->path_view_controller . 'form', compact('list', 'category', 'country', 'genre', 'movie', 'list_genre', 'movie_genre'));
     }
 
     /**
@@ -190,7 +191,7 @@ class MovieController extends Controller
         $movie->tags                = $data['tags'];
         $movie->movie_hot           = $data['movie_hot'];
         $movie->trailer             = $data['trailer'];
-        $movie->espisode_number     = $data['espisode_number'];
+        // $movie->episode_number      = $data['episode_number']; //check
 
         //delete old image then update new image
         $get_image = $request->file('image');

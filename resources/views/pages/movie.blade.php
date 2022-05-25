@@ -7,10 +7,14 @@
                     <div class="col-xs-6">
                         <div class="yoast_breadcrumb hidden-xs">
                             <span>
-                                <span> <a href="{{ route('category', $movie->category->slug) }}">{{ $movie->category->title }}</a> »
+                                <span> <a
+                                        href="{{ route('category', $movie->category->slug) }}">{{ $movie->category->title }}</a>
+                                    »
 
                                     <span>
-                                        <a href="{{ route('country', $movie->country->slug) }}">{{ $movie->country->title }}</a> »
+                                        <a
+                                            href="{{ route('country', $movie->country->slug) }}">{{ $movie->country->title }}</a>
+                                        »
 
                                         <span class="breadcrumb_last" aria-current="page">{{ $movie->title }}</span>
                                     </span>
@@ -45,12 +49,15 @@
                                     alt="{{ $movie->title }}">
 
                                 @if ($movie->resolution != 5)
-                                    <div class="bwa-content">
-                                        <div class="loader"></div>
-                                        <a href="{{ route('watch', [$movie->slug]) }}" class="bwac-btn">
-                                            <i class="fa fa-play"></i>
-                                        </a>
-                                    </div>
+                                    @if ($episode_current_list_count > 0)
+                                        <div class="bwa-content">
+                                            <div class="loader"></div>
+                                            <a href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $movie_episode->episode) }}"
+                                                class="bwac-btn">
+                                                <i class="fa fa-play"></i>
+                                            </a>
+                                        </div>
+                                    @endif
                                 @else
                                     <a href="#trailer_movie" style="display: block;" class="btn btn-primary">Xem trailer</a>
                                 @endif
@@ -89,10 +96,22 @@
                                     </li>
                                     {{-- <li class="list-info-group-item"><span>Điểm IMDb</span> : <span class="imdb">7.2</span></li> --}}
                                     <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->time }}</li>
-                                    <li class="list-info-group-item"><span>Số tập</span> : {{ $movie->espisode_number }}/{{ $movie->espisode_number }}</li>
+
+                                    @if ($movie->category->title == 'Phim bộ')
+                                        <li class="list-info-group-item"><span>Tập phim</span> :
+                                            {{ $episode_current_list_count }}/{{ $movie->episode_number }} -
+                                            @if ($episode_current_list_count == $movie->episode_number)
+                                                Hoàn thành
+                                            @else
+                                                Đang cập nhật
+                                            @endif
+                                        </li>
+                                    @endif
+
                                     <li class="list-info-group-item"><span>Thể loại</span> :
-                                        @foreach ($movie->movie_genre as $gen )
-                                            <a href="{{ route('genre', $gen->slug) }}" rel="genre tag">{{$gen->title}}</a>
+                                        @foreach ($movie->movie_genre as $gen)
+                                            <a href="{{ route('genre', $gen->slug) }}"
+                                                rel="genre tag">{{ $gen->title }}</a>
                                         @endforeach
                                     </li>
                                     <li class="list-info-group-item"><span>Danh mục</span> :
@@ -103,10 +122,23 @@
                                         <a href="{{ route('country', $movie->country->slug) }}"
                                             rel="country tag">{{ $movie->country->title }}</a>
                                     </li>
-                                    {{-- <li class="list-info-group-item"><span>Đạo diễn</span> : <a class="director"
-                                            rel="nofollow" href="https://phimhay.co/dao-dien/cate-shortland"
-                                            title="Cate Shortland">Cate Shortland</a></li>
-                                    <li class="list-info-group-item last-item"
+
+                                    @if ($episode_current_list_count > 0)
+                                        @if ($movie->category->title == 'Phim bộ')
+                                            <li class="list-info-group-item"><span>Tập phim mới nhất</span> :
+                                                @foreach ($episode as $key => $ep)
+                                                    <a href="{{ url('xem-phim/' . $ep->movie->slug . '/tap-' . $ep->episode) }}"
+                                                        rel="episode tag">Tập {{ $ep->episode }}</a>
+                                                @endforeach
+                                            </li>
+                                        @endif
+                                    @else
+                                        <li class="list-info-group-item"><span>Tập phim mới nhất</span> :
+                                            Đang cập nhật
+                                        </li>
+                                    @endif
+
+                                    {{-- <li class="list-info-group-item last-item"
                                         style="-overflow: hidden;-display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-flex: 1;-webkit-box-orient: vertical;">
                                         <span>Diễn viên</span> : <a href="" rel="nofollow" title="C.C. Smiff">C.C.
                                             Smiff</a>, <a href="" rel="nofollow" title="David Harbour">David Harbour</a>, <a

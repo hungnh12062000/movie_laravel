@@ -134,7 +134,11 @@ class IndexController extends Controller
         $category           = $this->category;
         $genre              = $this->genre;
         $country            = $this->country;
+
         $movie              = Movie::with('category', 'country', 'genre', 'movie_genre')->where('slug', $slug)->where('status', 1)->first();
+        //lấy tập phim theo phim
+        $movie_episode      = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'ASC')->take(1)->first();
+
         $movie_hot_sidebar  = $this->movie_hot_sidebar; //sidebar phimhot
         $movie_hot_trailer  = $this->movie_hot_trailer; //sidebar phim trailer
 
@@ -148,12 +152,18 @@ class IndexController extends Controller
         //Lấy những phim liên quan / cùng 'DANH MỤC'. Trừ phim đang chọn
         $movie_related  = Movie::with('category', 'country', 'genre')->where('category_id', $movie->category->id)->orderBy(DB::raw('RAND()'))->WhereNotIn('slug',[$slug])->get();
 
+        //lấy 3 tập gần nhất
+        $episode        = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->take(3)->get();
 
-        return view('pages.movie', compact('category', 'genre', 'country', 'movie', 'movie_related', 'movie_hot_sidebar', 'movie_hot_trailer'));
+        //lấy tổng số tập phim đã thêm
+        $episode_current_list        = Episode::with('movie')->where('movie_id', $movie->id)->get();
+        $episode_current_list_count  = $episode_current_list->count();
+
+        return view('pages.movie', compact('category', 'genre', 'country', 'movie', 'movie_related', 'movie_hot_sidebar', 'movie_hot_trailer', 'episode', 'movie_episode', 'episode_current_list_count'));
     }
 
     // go to page xem phim
-    public function watch($slug){
+    public function watch($slug, $tap){
         $category           = $this->category;
         $genre              = $this->genre;
         $country            = $this->country;
@@ -161,8 +171,21 @@ class IndexController extends Controller
         $movie_hot_trailer  = $this->movie_hot_trailer; //sidebar phim trailer
 
         $movie              = Movie::with('category', 'country', 'genre', 'movie_genre', 'episode')->where('slug', $slug)->where('status', 1)->first();
+        //phim liên quan theo thể loại
+        $movie_related  = Movie::with('category', 'country', 'genre')->where('genre_id', $movie->genre->id)->orderBy(DB::raw('RAND()'))->WhereNotIn('slug',[$slug])->get();
+
+        if(isset($tap)){
+            $tapphim = $tap;
+            $tapphim = substr($tap, 4, 10);
+            $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
+        }else {
+            $tapphim = 1;
+            $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
+        }
+        // dd($tapphim);
+
         // return response()->json($movie);
-        return view('pages.watch', compact('category', 'genre', 'country', 'movie', 'movie_hot_sidebar', 'movie_hot_trailer'));
+        return view('pages.watch', compact('category', 'genre', 'country', 'movie', 'movie_hot_sidebar', 'movie_hot_trailer', 'episode', 'tapphim', 'movie_related'));
     }
 
     // go to page tập phim

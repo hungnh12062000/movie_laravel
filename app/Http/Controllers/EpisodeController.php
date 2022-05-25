@@ -34,7 +34,6 @@ class EpisodeController extends Controller
         $list_movie = Movie::orderBy('id', 'DESC')->pluck('title', 'id');
 
         return view('admin.episode.form', compact('list_movie'));
-
     }
 
     /**
@@ -53,7 +52,7 @@ class EpisodeController extends Controller
         $ep->episode        = $data['episode'];
 
         $ep->save();
-        return redirect()->back();
+        return redirect()->route('episode.index');
     }
 
     /**
@@ -78,7 +77,6 @@ class EpisodeController extends Controller
         $list_movie = Movie::orderBy('id', 'DESC')->pluck('title', 'id');
         $episode    = Episode::find($id);
         return view('admin.episode.form', compact('episode', 'list_movie'));
-
     }
 
     /**
@@ -111,18 +109,26 @@ class EpisodeController extends Controller
     {
         $episode = Episode::find($id)->delete();
         return redirect()->route('episode.index');
-
-
     }
 
-    public function select_movie(){
+    public function select_movie()
+    {
         $id = $_GET['id'];
         $movie   = Movie::find($id);
 
         $output = '<option>---Chọn tập phim---</option>';
 
-        for ($i=1; $i <= $movie->episode_number ; $i++) {
-            $output .= ' <option value="'. $i .'">' . $i . '</option>';
+        if ($movie->category->title == 'Phim bộ') {
+            for ($i = 1; $i <= $movie->episode_number; $i++) {
+                $output .= ' <option value="' . $i . '">' . $i . '</option>';
+            }
+        } else {
+            $output .= '
+                <option value="HD">HD</option>
+                <option value="FullHD">FullHD</option>
+                <option value="Cam">Cam</option>
+                <option value="HDCam">HDCam</option>
+            ';
         }
 
         return $output;
