@@ -7,6 +7,11 @@ use App\Models\Country;
 
 class CountryController extends Controller
 {
+    private $path_view_controller = 'admin.country.';
+
+    public function __construct()
+    {
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        // return "hello";
+        $list = Country::all();
+        return view($this->path_view_controller . 'index', compact('list'));
     }
 
     /**
@@ -25,7 +31,7 @@ class CountryController extends Controller
     public function create()
     {
         $list = Country::all();
-        return view('admin.country.form', compact('list'));
+        return view($this->path_view_controller . 'form', compact('list'));
     }
 
     /**
@@ -47,7 +53,7 @@ class CountryController extends Controller
 
         $country->save();
 
-        return redirect()->back();
+        return redirect()->route('country.index');
     }
 
     /**
@@ -72,7 +78,7 @@ class CountryController extends Controller
         //compact : truyền data ra view để view có thể dùng được 2 biến $list và $country || dùng with || dùng array
         $country = Country::find($id);
         $list = Country::all();
-        return view('admin.country.form', compact('list', 'country'));
+        return view($this->path_view_controller . 'form', compact('list', 'country'));
     }
 
     /**
@@ -97,7 +103,7 @@ class CountryController extends Controller
 
         $country->save();
 
-        return redirect()->route('country.create');
+        return redirect()->route('country.index');
     }
 
     /**
@@ -109,6 +115,7 @@ class CountryController extends Controller
     public function destroy($id)
     {
         Country::find($id)->delete();
-        return redirect()->back();
+        return redirect()->route('country.index');
+
     }
 }

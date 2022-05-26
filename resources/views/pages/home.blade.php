@@ -32,12 +32,14 @@
                                     @else
                                         Trailer
                                     @endif
-                                </span><span class="episode"><i class="fa fa-play"
-                                        aria-hidden="true"></i>
+                                </span>
+                                <span class="episode">
+                                    <i class="fa fa-play" aria-hidden="true"></i>
                                         @if ($mov_hot->cc == 0)
-                                            Phụ đề
+                                            Phụ đề | {{$mov_hot->time}}
+
                                         @elseif ($mov_hot->cc == 1)
-                                            Thuyết minh
+                                            TM | {{$mov_hot->time}}
                                         @endif
                                 </span>
                                 <div class="icon_overlay"></div>
@@ -92,9 +94,9 @@
                                             @endif
                                         </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
                                             @if ($mov->cc == 0)
-                                                Phụ đề
+                                                Phụ đề | {{$mov->time}}
                                             @elseif ($mov->cc == 1)
-                                                Thuyết minh
+                                                TM | {{$mov->time}}
                                             @endif
                                         </span>
                                         <div class="icon_overlay"></div>

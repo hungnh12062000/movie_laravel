@@ -142,7 +142,7 @@ img:hover {
     overflow: hidden;
 }
 
-.input-search{
+.input-search {
     display: flex;
     gap: 10px;
 }
@@ -228,7 +228,7 @@ img:hover {
     padding: 15px;
 }
 
-.heading-category{
+.heading-category {
     display: flex;
     justify-content: space-between;
 }
@@ -1613,7 +1613,6 @@ tr.title {
     opacity: 0;
     -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
-
 }
 .grid-item:hover .icon_overlay,
 .slider-thumb:hover .icon_overlay {
@@ -4822,9 +4821,7 @@ span.ajax-update-eps:hover {
     background-color: #4d7496;
 }
 @media (max-width: 767px) {
-    .home.halim-light-mode .main-navigation .navbar-nav >
-    .active >
-    a {
+    .home.halim-light-mode .main-navigation .navbar-nav > .active > a {
         display: none;
     }
 }
@@ -5351,7 +5348,8 @@ ul.list-info-group {
 }
 .title-wrapper-xem {
     float: left;
-    width: 50%;
+    /* width: 50%; */
+    width: 100%;
     display: inline-block;
     padding-bottom: 8px;
     border-bottom: 1px solid #40474e;
@@ -5535,4 +5533,91 @@ ul.list-info-group {
     #footer .footer-logo {
         padding: 15px 0;
     }
+}
+
+/* footer  */
+footer > ul {
+    list-style: none outside none;
+    margin: 0 auto;
+    max-width: 1200px;
+    overflow: hidden;
+    padding: 25px 0;
+    position: relative;
+    width: 100%;
+}
+
+footer > ul li .icon {
+    color: #999;
+    float: left;
+    font-size: 80px;
+    line-height: 80px;
+}
+
+footer .bar {
+    padding: 20px 0;
+}
+
+footer .bar-wrap {
+    font-size: 12px;
+    margin: 0 auto;
+    max-width: 1200px;
+    position: relative;
+    width: 100%;
+}
+
+footer .fb-like {
+    min-width: 60px;
+    margin: 5px 0;
+}
+
+.links {
+    float: left;
+    list-style: none outside none;
+    position: relative;
+    width: 25%;
+    margin-right: 60px;
+}
+
+.links li {
+    float: left;
+    margin-right: 10px;
+}
+
+.textlink {
+    width: 60%;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.hotlink {
+    float: left;
+    margin-right: 40px;
+}
+
+.hotlink a {
+    color: #fff;
+    display: block;
+    padding: 5px 0;
+    text-decoration: none;
+    font-size: 12px;
+}
+.footer {
+    /* background: url(../img/micro_carbon.png); */
+    min-height: 100px;
+    padding: 20px 25px 15px;
+    border-top: 3px solid #dacb46;
+    border-bottom: 1px solid #111;
+    margin-top: 20px;
+    background: #222d38;
+}
+.phimaz-foot {
+    font: 24px/25px "UTMCafetaRegular";
+    color: #44e2ff;
+    display: block;
+    padding-bottom: 5px;
+}
+
+.hotlink a:hover {
+    color: #dacb46;
 }

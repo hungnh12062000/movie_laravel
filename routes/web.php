@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\HomeController;
 
 //admin controller
 use App\Http\Controllers\CategoryController;
@@ -11,6 +10,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\EpisodeController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -24,9 +24,10 @@ use App\Http\Controllers\EpisodeController;
 |
 */
 
-$prefixAdmin = config('web_route.url.prefix_admin');
+$admin = config('web_route.url.admin');
 
-//CLIENT
+//------------------------------------------------------CLIENT------------------------------------------------------
+
 Route::prefix('/')->group(function () {
 
     //page home
@@ -52,19 +53,13 @@ Route::prefix('/')->group(function () {
 });
 
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('homeadmin');
 Route::get('/nam/{year}', [IndexController::class, 'year']);
 Route::get('/tag/{tag}', [IndexController::class, 'tag']);
 Route::get('/search', [IndexController::class, 'search'])->name('search');
 
-//Admin
-Route::prefix($prefixAdmin)->group(function () {
-    Route::resource('/category', CategoryController::class);
-    Route::resource('/genre', GenreController::class);
-    Route::resource('/country', CountryController::class);
-    Route::resource('/episode', EpisodeController::class);
-    Route::resource('/movie', MovieController::class);
-});
+
+
+//------------------------------------------------------ADMIN------------------------------------------------------
 
 Route::get('/update-year-movie', [MovieController::class, 'update_year']);
 Route::get('/update-topview-movie', [MovieController::class, 'update_topview']);
@@ -72,3 +67,29 @@ Route::get('/update-topview-movie', [MovieController::class, 'update_topview']);
 // Route::get('/filter-topview-default', [MovieController::class, 'filter_default']);
 Route::get('select-movie', [EpisodeController::class, 'select_movie'])->name('select-movie');
 
+Route::prefix($admin)->group(function () {
+
+    //====================DASHBOARD========================
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    //====================DANH MỤC=========================
+    Route::resource('/category', CategoryController::class);
+
+    //====================THỂ LOẠI=========================
+    Route::resource('/genre', GenreController::class);
+
+    //====================QUỐC GIA=========================
+    Route::resource('/country', CountryController::class);
+
+    //======================PHIM===========================
+    Route::resource('/movie', MovieController::class);
+
+    //====================TẬP PHIM=========================
+    Route::resource('/episode', EpisodeController::class);
+
+    //====================SLIDER===========================
+    $slider  = 'slider';
+    Route::prefix($slider)->group(function () {
+        Route::get('/', [DashboardController::class, 'slider'])->name('slider');
+    });
+});

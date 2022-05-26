@@ -26,12 +26,13 @@ class IndexController extends Controller
         $this->movie_hot_trailer    = Movie::where('resolution', 5)->where('status', 1)->orderBy('update_day', 'DESC')->take(6)->get();
     }
 
-    public function search(){
-        if(isset($_GET['search'])){
+    public function search()
+    {
+        if (isset($_GET['search'])) {
             $search = $_GET['search'];
 
             $category           = $this->category;
-            $movie              = Movie::where('title', 'LIKE', '%'.$search.'%')->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate    => limited
+            $movie              = Movie::where('title', 'LIKE', '%' . $search . '%')->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate    => limited
             $movie_hot_sidebar  = $this->movie_hot_sidebar; //sidebar phimhot
             $movie_hot_trailer  = $this->movie_hot_trailer; //sidebar phim trailer
 
@@ -41,10 +42,10 @@ class IndexController extends Controller
         } else {
             return redirect()->to('/');
         }
-
     }
     // controll page pages/home
-    public function home(){
+    public function home()
+    {
         $movie_hot          = Movie::where('movie_hot', 1)->where('status', 1)->orderBy('create_day', 'DESC')->get(); //phimhot slider
         $movie_hot_sidebar  = $this->movie_hot_sidebar; //sidebar phimhot
         $movie_hot_trailer  = $this->movie_hot_trailer; //sidebar phim trailer
@@ -58,7 +59,8 @@ class IndexController extends Controller
     }
 
     // controll page pages/category
-    public function category($slug){
+    public function category($slug)
+    {
         $category           = $this->category;
         $cate_slug          = Category::where('slug', $slug)->first();
         $movie              = Movie::where('category_id', $cate_slug->id)->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate    => limited
@@ -71,7 +73,8 @@ class IndexController extends Controller
     }
 
     //year
-    public function year($year){
+    public function year($year)
+    {
         $category           = $this->category;
         $year               = $year;
         $movie              = Movie::where('year', $year)->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate  => limited
@@ -84,10 +87,11 @@ class IndexController extends Controller
     }
 
     //tag
-    public function tag($tag){
+    public function tag($tag)
+    {
         $category           = $this->category;
         $tag                = $tag;
-        $movie              = Movie::where('tags','LIKE','%'.$tag.'%')->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate => limited
+        $movie              = Movie::where('tags', 'LIKE', '%' . $tag . '%')->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate => limited
         $movie_hot_sidebar  = $this->movie_hot_sidebar; //sidebar phimhot
         $movie_hot_trailer  = $this->movie_hot_trailer; //sidebar phim trailer
 
@@ -97,7 +101,8 @@ class IndexController extends Controller
     }
 
     // controll page pages/genre
-    public function genre($slug){
+    public function genre($slug)
+    {
         $category           = $this->category;
         $genre_slug         = Genre::where('slug', $slug)->first();
         $genre              = $this->genre;
@@ -117,7 +122,8 @@ class IndexController extends Controller
     }
 
     // controll page pages/country
-    public function country($slug){
+    public function country($slug)
+    {
         $category           = $this->category;
         $country_slug       = Country::where('slug', $slug)->first();
         $movie              = Movie::where('country_id', $country_slug->id)->orderBy('update_day', 'DESC')->paginate(8);
@@ -130,7 +136,8 @@ class IndexController extends Controller
     }
 
     // go to page chi tiết phim
-    public function movie($slug){
+    public function movie($slug)
+    {
         $category           = $this->category;
         $genre              = $this->genre;
         $country            = $this->country;
@@ -150,7 +157,7 @@ class IndexController extends Controller
         // $movie_related  = Movie::with('category', 'country', 'genre')->where('genre_id', $movie->genre->id)->orderBy(DB::raw('RAND()'))->WhereNotIn('slug',[$slug])->get();
 
         //Lấy những phim liên quan / cùng 'DANH MỤC'. Trừ phim đang chọn
-        $movie_related  = Movie::with('category', 'country', 'genre')->where('category_id', $movie->category->id)->orderBy(DB::raw('RAND()'))->WhereNotIn('slug',[$slug])->get();
+        $movie_related  = Movie::with('category', 'country', 'genre')->where('category_id', $movie->category->id)->orderBy(DB::raw('RAND()'))->WhereNotIn('slug', [$slug])->get();
 
         //lấy 3 tập gần nhất
         $episode        = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->take(3)->get();
@@ -163,7 +170,8 @@ class IndexController extends Controller
     }
 
     // go to page xem phim
-    public function watch($slug, $tap){
+    public function watch($slug, $tap)
+    {
         $category           = $this->category;
         $genre              = $this->genre;
         $country            = $this->country;
@@ -172,13 +180,13 @@ class IndexController extends Controller
 
         $movie              = Movie::with('category', 'country', 'genre', 'movie_genre', 'episode')->where('slug', $slug)->where('status', 1)->first();
         //phim liên quan theo thể loại
-        $movie_related  = Movie::with('category', 'country', 'genre')->where('genre_id', $movie->genre->id)->orderBy(DB::raw('RAND()'))->WhereNotIn('slug',[$slug])->get();
+        $movie_related  = Movie::with('category', 'country', 'genre')->where('genre_id', $movie->genre->id)->orderBy(DB::raw('RAND()'))->WhereNotIn('slug', [$slug])->get();
 
-        if(isset($tap)){
+        if (isset($tap)) {
             $tapphim = $tap;
             $tapphim = substr($tap, 4, 10);
             $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
-        }else {
+        } else {
             $tapphim = 1;
             $episode = Episode::where('movie_id', $movie->id)->where('episode', $tapphim)->first();
         }
@@ -189,7 +197,8 @@ class IndexController extends Controller
     }
 
     // go to page tập phim
-    public function episode(){
+    public function episode()
+    {
         $category           = $this->category;
         $genre              = $this->genre;
         $country            = $this->country;
@@ -200,5 +209,4 @@ class IndexController extends Controller
 
         return view('pages.episode',  compact('category', 'genre', 'country', 'movie', 'movie_hot_sidebar', 'movie_hot_trailer'));
     }
-
 }

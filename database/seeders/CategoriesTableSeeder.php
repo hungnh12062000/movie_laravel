@@ -15,13 +15,32 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
-            'title' => 'Phim lẻ',
-            'description' => 'Phim lẻ hay nhất 2022',
-            'status' => '1',
-            'slug' => 'phim-le',
-            'created_at' => date("Y-m-d H:i:s"),
-            'updated_at' => date("Y-m-d H:i:s"),
-        ]);
+        DB::table('categories')->insert(
+            [
+                'title' => 'Phim lẻ',
+                'description' => 'Phim lẻ hay nhất 2022',
+                'status' => '1',
+                'slug' => 'phim-le',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'title' => 'Phim bộ',
+                'description' => 'Phim bộ hay nhất 2022',
+                'status' => '1',
+                'slug' => 'phim-bộ',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'title' => 'Phim chiếu rạp',
+                'description' => 'Phim chiếu rạp hay nhất 2022',
+                'status' => '1',
+                'slug' => 'phim-chieu-rap',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ]
+        );
+
     }
 }

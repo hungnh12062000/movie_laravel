@@ -7,6 +7,13 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    private $path_view_controller = 'admin.category.';
+
+    public function __construct()
+    {
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // return "hello";
+        $list = Category::all();
+        return view($this->path_view_controller .'index', compact('list'));
+
     }
 
     /**
@@ -25,7 +34,7 @@ class CategoryController extends Controller
     public function create()
     {
         $list = Category::all();
-        return view('admin.category.form', compact('list'));
+        return view($this->path_view_controller .'form', compact('list'));
     }
 
     /**
@@ -47,7 +56,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->back();
+        return redirect()->route('category.index');
 
     }
 
@@ -73,7 +82,7 @@ class CategoryController extends Controller
         //compact : truyền data ra view để view có thể dùng được 2 biến $list và $category || dùng with || dùng array
         $category = Category::find($id);
         $list = Category::all();
-        return view('admin.category.form', compact('list', 'category'));
+        return view($this->path_view_controller .'form', compact('list', 'category'));
 
     }
 
@@ -99,7 +108,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('category.create');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -111,7 +120,8 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect()->back();
+        return redirect()->route('category.index');
+
 
     }
 }

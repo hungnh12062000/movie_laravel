@@ -22,15 +22,15 @@
     <link rel="canonical" href="">
     <link rel="next" href="" />
     <meta property="og:locale" content="vi_VN" />
-    <meta property="og:title" content="Phim hay 2020 - Xem phim hay nhất" />
+    <meta property="og:title" content="Phim hay 2022 - Xem phim hay nhất" />
     <meta property="og:description"
-        content="Phim hay 2020 - Xem phim hay nhất, phim hay trung quốc, hàn quốc, việt nam, mỹ, hong kong, chiếu rạp" />
+        content="Phim hay 2022 - Xem phim hay nhất, phim hay trung quốc, hàn quốc, việt nam, mỹ, hong kong, chiếu rạp" />
     <meta property="og:url" content="" />
     <meta property="og:site_name" content="Phim hay 2022 - Xem phim hay nhất" />
     <meta property="og:image" content="" />
     <meta property="og:image:width" content="300" />
     <meta property="og:image:height" content="55" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
     <link rel='dns-prefetch' href='//s.w.org' />
 
@@ -97,13 +97,13 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 hidden-xs">
+                {{-- <div class="col-md-4 hidden-xs">
                     <div id="get-bookmark" class="box-shadow"><i class="hl-bookmark"></i><span>
                             Bookmarks</span><span class="count">0</span></div>
                     <div id="bookmark-list" class="hidden bookmark-list-on-pc">
                         <ul style="margin: 0;"></ul>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </header>
@@ -111,7 +111,7 @@
     <div class="navbar-container">
         <div class="container">
             <nav class="navbar halim-navbar main-navigation" role="navigation" data-dropdown-hover="1">
-                <div class="navbar-header">
+                {{-- <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse"
                         data-target="#halim" aria-expanded="false">
                         <span class="sr-only">Menu</span>
@@ -131,7 +131,7 @@
                         <a href="javascript:;" id="expand-ajax-filter" style="color: #ffed4d;">Lọc <i
                                 class="fas fa-filter"></i></a>
                     </button>
-                </div>
+                </div> --}}
                 <div class="collapse navbar-collapse" id="halim">
                     <div class="menu-menu_1-container">
                         <ul id="menu-menu_1" class="nav navbar-nav navbar-left">
@@ -213,8 +213,73 @@
     </div>
     <div class="clearfix"></div>
 
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="bar">
+                    <div class="bar-wrap">
+                        <div class="links">
+                            <img src="https://www.pngkey.com/png/detail/360-3601772_your-logo-here-your-company-logo-here-png.png" alt="Phim Mới" />
+                            <br>
+                            <div class="copyright">Copyright 2022 © <a href="#"
+                                    title="Phim Mới">XEMPHIMHAY.NET</a> <br />
+                                <p>Xem phim mới miễn phí nhanh chất lượng cao. Xem Phim online Việt Sub, Thuyết minh,
+                                    lồng tiếng chất lượng HD. Xem phim nhanh online chất lượng cao</p><br />
 
-    <footer id="footer" class="clearfix">
+                            </div>
+                        </div>
+                        <div class="textlink">
+                            <div class="hotlink">
+                                <h3 class="phimaz-foot">Phim Mới</h3>
+                                <a href="#" title="Phim Lẻ">Phim lẻ mới</a>
+                                <a href="#" title="Phim Bộ">Phim bộ mới</a>
+                                <a href="#" title="Phim chiếu rạp">Phim chiếu rạp</a>
+                                <a href="#" title="Phim sắp chiếu">Phim sắp chiếu</a>
+                                <a href="#" title="Phim thuyết minh">Phim thuyết minh</a>
+                            </div>
+                            <div class="hotlink">
+                                <h3 class="phimaz-foot">Phim Lẻ</h3>
+                                <a href="#"
+                                    title="Phim Hành Động">Phim hành động</a>
+                                <a href="#"
+                                    title="Phim kiếm hiệp">Phim kiếm hiệp</a>
+                                <a href="#"
+                                    title="Phim kinh dị">Phim kinh dị</a>
+                                <a href="#"
+                                    title="Phim viễn tưởng">Phim viễn tưởng</a>
+                                <a href="#"
+                                    title="Phim hoạt hình">Phim hoạt hình</a>
+                            </div>
+                            <div class="hotlink">
+                                <h3 class="phimaz-foot">Phim Bộ</h3>
+                                <a href="#"
+                                    title="Phim bộ Hàn Quốc">Phim bộ Hàn Quốc</a>
+                                <a href="#"
+                                    title="Phim bộ Trung Quốc">Phim bộ Trung Quốc</a>
+                                <a href="#"
+                                    title="Phim bộ Mỹ">Phim bộ Mỹ</a>
+                                <a href="#"
+                                    title="Phim bộ Việt Nam">Phim bộ Việt Nam</a>
+                                <a href="#"
+                                    title="Phim bộ Hồng Kông">Phim bộ Hồng Kông</a>
+                            </div>
+
+                        </div>
+                        {{-- <div class="social"><a href="#" class="call"><span data-icon="7"
+                                    class="icon"></span>
+                                <span class="info"><span class="follow">Email liên hệ:</span>
+                                    <span class="num"><span class="__cf_email__"
+                                            data-cfemail="9df8e7edf5f4f0f0f2f4b3f3f8e9ddfaf0fcf4f1b3fef2f0">[email&#160;protected]</span></span></span></a>
+                        </div> --}}
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="fb-root"></div>
+        <div id='easy-top'></div>
+    </footer>
+    {{-- <footer id="footer" class="clearfix">
         <div class="container footer-columns">
             <div class="row container">
                 <div class="widget about col-xs-12 col-sm-4 col-md-4">
@@ -228,8 +293,8 @@
                 </div>
             </div>
         </div>
-    </footer>
-    <div id='easy-top'></div>
+    </footer> --}}
+    {{-- <div id='easy-top'></div> --}}
 
     <script type='text/javascript' src='{{ asset('js/bootstrap.min.js') }}' id='bootstrap-js'></script>
     <script type='text/javascript' src='{{ asset('js/owl.carousel.min.') }}js' id='carousel-js'></script>
@@ -328,8 +393,8 @@
                 autoplayTimeout: 4000,
                 autoplayHoverPause: true,
                 nav: true,
-                navText: ['<i class="hl-down-open rotate-left"></i>',
-                    '<i class="hl-down-open rotate-right"></i>'
+                navText: ['<i class="fa-solid fa-arrow-left"></i>',
+                    '<i class="fa-solid fa-arrow-right"></i>'
                 ],
                 responsiveClass: true,
                 responsive: {

@@ -34,16 +34,7 @@
                 <div class="clearfix wrap-content">
 
                     <div class="halim-movie-wrapper">
-                        <div class="title-block">
-                            <div id="bookmark" class="bookmark-img-animation primary_ribbon" data-id="38424">
-                                <div class="halim-pulse-ring"></div>
-                            </div>
-                            <div class="title-wrapper" style="font-weight: bold;">
-                                Bookmark
-                            </div>
-                        </div>
                         <div class="movie_info col-xs-12">
-
                             <div class="movie-poster col-md-3">
                                 <img class="movie-thumb" src="{{ asset('uploads/movie/' . $movie->image) }}"
                                     alt="{{ $movie->title }}">
@@ -57,6 +48,9 @@
                                                 <i class="fa fa-play"></i>
                                             </a>
                                         </div>
+                                    @else
+                                        <a href="#trailer_movie" style="display: block;" class="btn btn-primary">Xem
+                                            trailer</a>
                                     @endif
                                 @else
                                     <a href="#trailer_movie" style="display: block;" class="btn btn-primary">Xem trailer</a>
@@ -174,6 +168,7 @@
                     {{-- Nội dung phim end --}}
 
                     {{-- Từ khóa --}}
+                    @if(isset($movie->tags))
                     <div class="section-bar clearfix">
                         <h2 class="section-title"><span style="color:#ffed4d">Từ khóa</span></h2>
                     </div>
@@ -193,6 +188,7 @@
                             </article>
                         </div>
                     </div>
+                    @endif
                     {{-- Từ khóa end --}}
 
                     {{-- trailer --}}
@@ -304,8 +300,8 @@
                                 autoplayTimeout: 4000,
                                 autoplayHoverPause: true,
                                 nav: true,
-                                navText: ['<i class="hl-down-open rotate-left"></i>',
-                                    '<i class="hl-down-open rotate-right"></i>'
+                                navText: ['<i class="fa-solid fa-arrow-left"></i>',
+                                    '<i class="fa-solid fa-arrow-right"></i>'
                                 ],
                                 responsiveClass: true,
                                 responsive: {

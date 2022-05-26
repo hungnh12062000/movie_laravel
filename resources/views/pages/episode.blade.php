@@ -84,30 +84,30 @@
 
                             @if ($movie->resolution == 0)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i>HD</a></li>
+                                        role="tab" data-toggle="tab"><i class="fa-solid fa-microphone"></i> HD</a></li>
                             @elseif ($movie->resolution == 1)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i>SD</a></li>
+                                        role="tab" data-toggle="tab"><i class="fa-solid fa-microphone"></i> SD</a></li>
                             @elseif ($movie->resolution == 2)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i>HDcam</a></li>
+                                        role="tab" data-toggle="tab"><i class="fa-solid fa-microphone"></i> HDcam</a></li>
                             @elseif ($movie->resolution == 3)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i>Cam</a></li>
+                                        role="tab" data-toggle="tab"><i class="fa-solid fa-microphone"></i> Cam</a></li>
                             @elseif ($movie->resolution == 4)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i>FullHD</a></li>
+                                        role="tab" data-toggle="tab"><i class="fa-solid fa-microphone"></i> FullHD</a></li>
                             @else
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i>Trailer</a></li>
+                                        role="tab" data-toggle="tab"><i class="fa-solid fa-microphone"></i> Trailer</a></li>
                             @endif
 
                             @if ($movie->cc == 0)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i>Phụ đề</a></li>
+                                        role="tab" data-toggle="tab"><i class="fa-solid fa-microphone"></i> Phụ đề</a></li>
                             @elseif ($movie->cc == 1)
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i>Thuyết minh</a></li>
+                                        role="tab" data-toggle="tab"><i class="fa-solid fa-microphone"></i> Thuyết minh</a></li>
                             @endif
                         </ul>
                         <div class="tab-content">
@@ -173,8 +173,8 @@
                                 autoplayTimeout: 4000,
                                 autoplayHoverPause: true,
                                 nav: true,
-                                navText: ['<i class="hl-down-open rotate-left"></i>',
-                                    '<i class="hl-down-open rotate-right"></i>'
+                                navText: ['<i class="fa-solid fa-arrow-left"></i>',
+                                    '<i class="fa-solid fa-arrow-right"></i>'
                                 ],
                                 responsiveClass: true,
                                 responsive: {

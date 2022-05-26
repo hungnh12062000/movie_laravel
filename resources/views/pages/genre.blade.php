@@ -46,9 +46,9 @@
                                     </span><span class="episode"><i class="fa fa-play"
                                             aria-hidden="true"></i>
                                         @if ($mov->cc == 0)
-                                            Phụ đề - tập 1 / {{$mov->espisode_number}}
+                                            Phụ đề - {{$mov->time}}
                                         @elseif ($mov->cc == 1)
-                                            Thuyết minh - tập 1 / {{$mov->espisode_number}}
+                                            TM - {{$mov->time}}
                                         @endif
                                     </span>
                                     <div class="icon_overlay"></div>

@@ -12,6 +12,11 @@ use App\Models\Movie_Genre;
 
 class EpisodeController extends Controller
 {
+    private $path_view_controller = 'admin.episode.';
+
+    public function __construct()
+    {
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +26,7 @@ class EpisodeController extends Controller
     {
         $list_episode = Episode::with('movie')->orderBy('movie_id', 'DESC')->get();
         // return response()->json($list_episode);
-        return view('admin.episode.index', compact('list_episode'));
+        return view($this->path_view_controller . 'index', compact('list_episode'));
     }
 
     /**
@@ -33,7 +38,7 @@ class EpisodeController extends Controller
     {
         $list_movie = Movie::orderBy('id', 'DESC')->pluck('title', 'id');
 
-        return view('admin.episode.form', compact('list_movie'));
+        return view($this->path_view_controller . 'form', compact('list_movie'));
     }
 
     /**
@@ -76,7 +81,7 @@ class EpisodeController extends Controller
     {
         $list_movie = Movie::orderBy('id', 'DESC')->pluck('title', 'id');
         $episode    = Episode::find($id);
-        return view('admin.episode.form', compact('episode', 'list_movie'));
+        return view($this->path_view_controller . 'form', compact('episode', 'list_movie'));
     }
 
     /**

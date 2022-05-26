@@ -14,7 +14,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        // return "hello";
+        $list = Genre::all();
+        return view('admin.genre.index', compact('list'));
     }
 
     /**
@@ -47,7 +48,8 @@ class GenreController extends Controller
 
         $genre->save();
 
-        return redirect()->back();
+        return redirect()->route('genre.index');
+
 
     }
 
@@ -99,7 +101,7 @@ class GenreController extends Controller
 
         $genre->save();
 
-        return redirect()->route('genre.create');
+        return redirect()->route('genre.index');
     }
 
     /**

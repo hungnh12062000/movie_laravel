@@ -37,7 +37,6 @@ class MovieController extends Controller
         if(!is_dir($path)){
             mkdir($path, 07777, true); //create folder json_file và cấp quyền thêm sửa xóa
         }
-
         File::put($path.'/movies.json', json_encode($list));
 
         return view($this->path_view_controller . 'index', compact('list'));
@@ -126,7 +125,8 @@ class MovieController extends Controller
         // thêm nhiều genre cho movie
         $movie->movie_genre()->attach($data['genre']);
 
-        return redirect()->back();
+        return redirect()->route('movie.index');
+
     }
 
     /**
@@ -210,7 +210,7 @@ class MovieController extends Controller
         $movie->save();
         $movie->movie_genre()->sync($data['genre']);
 
-        return redirect()->route('movie.create');
+        return redirect()->route('movie.index');
     }
 
     /**
@@ -237,6 +237,6 @@ class MovieController extends Controller
         //xóa phim
         $movie->delete();
 
-        return redirect()->route('movie.create');
+        return redirect()->route('movie.index');
     }
 }
