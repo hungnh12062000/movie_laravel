@@ -141,39 +141,39 @@
                                 <a title="Thể Loại" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">THỂ LOẠI<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    @foreach ($genre as $key => $gen)
+                                    {{-- @foreach ($genre as $key => $gen)
                                         <li><a title="{{ $gen->title }}"
                                                 href="{{ route('genre', $gen->slug) }}">{{ $gen->title }}</a></li>
-                                    @endforeach
+                                    @endforeach --}}
                                 </ul>
                             </li>
                             <li class="mega dropdown">
                                 <a title="Quốc Gia" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">QUỐC GIA<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    @foreach ($country as $key => $coun)
+                                    {{-- @foreach ($country as $key => $coun)
                                         <li><a title="{{ $coun->title }}"
                                                 href="{{ route('country', $coun->slug) }}">{{ $coun->title }}</a>
                                         </li>
-                                    @endforeach
+                                    @endforeach --}}
                                 </ul>
                             </li>
                             <li class="mega dropdown">
                                 <a title="Năm phim" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">NĂM PHIM<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    @for ($year = 2017; $year <= 2022; $year++)
+                                    {{-- @for ($year = 2017; $year <= 2022; $year++)
                                         <li><a title="{{ $year }}"
                                                 href="{{ url('nam/' . $year) }}">{{ $year }}</a>
                                         </li>
-                                    @endfor
+                                    @endfor --}}
                                 </ul>
                             </li>
-                            @foreach ($category as $key => $cate)
+                            {{-- @foreach ($category as $key => $cate)
                                 <li class="mega" style="text-transform: uppercase;"><a
                                         title="{{ $cate->title }}"
                                         href="{{ route('category', $cate->slug) }}">{{ $cate->title }}</a></li>
-                            @endforeach
+                            @endforeach --}}
                             {{-- <li class="mega dropdown">
                                 <a title="Năm" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">Năm <span class="caret"></span></a>

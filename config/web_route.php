@@ -1,7 +1,7 @@
 <?php
     return [
         'url' => [
-            'admin' => 'admin-manager',
+            'admin' => 'admin_manager',
             // 'prefix_admin_dashboard' => 'admin_dashboard',
         ]
     ];
