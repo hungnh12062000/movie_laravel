@@ -32,7 +32,7 @@ class IndexController extends Controller
             $search = $_GET['search'];
 
             $category           = $this->category;
-            $movie              = Movie::where('title', 'LIKE', '%' . $search . '%')->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate    => limited
+            $movie              = Movie::where('title', 'LIKE', '%' . $search . '%')->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate => limited
             $movie_hot_sidebar  = $this->movie_hot_sidebar; //sidebar phimhot
             $movie_hot_trailer  = $this->movie_hot_trailer; //sidebar phim trailer
 
@@ -77,7 +77,7 @@ class IndexController extends Controller
     {
         $category           = $this->category;
         $year               = $year;
-        $movie              = Movie::where('year', $year)->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate  => limited
+        $movie = Movie::where('year', $year)->orderBy('update_day', 'DESC')->paginate(8); //get => all movie || paginate  => limited
         $movie_hot_sidebar  = $this->movie_hot_sidebar; //sidebar phimhot
         $movie_hot_trailer  = $this->movie_hot_trailer; //sidebar phim trailer
 

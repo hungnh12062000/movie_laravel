@@ -1,5 +1,5 @@
 {{-- list --}}
-<table class="table table-hover">
+<table class="table table-hover table-bordered" id="tableMovie">
     <thead class="">
         <tr class="bg-primary">
             <th scope="col" class="">#</th>

@@ -13,23 +13,22 @@
             {{-- <th scope="col">Mô tả phim</th> --}}
             {{-- <th scope="col">Từ khóa</th> --}}
             <th scope="col">Trạng thái</th>
-            {{-- <th scope="col">Danh mục</th>
+            <th scope="col">Danh mục</th>
             <th scope="col">Quốc gia</th>
-            <th scope="col">Thể loại</th> --}}
+            {{-- <th scope="col">Thể loại</th> --}}
             {{-- <th scope="col">Ngày tạo</th> --}}
             <th scope="col">Ngày cập nhật</th>
             <th scope="col" class="col-1">Năm phim</th>
-            <th scope="col" class="col-1">Top views</th>
+            {{-- <th scope="col" class="col-1">Top views</th> --}}
             <th scope="col">Hành động</th>
         </tr>
     </thead>
     <tbody>
-
         @foreach ($list as $key => $movie)
             <tr>
                 <th scope="row">{{ $key }}</th>
                 <td>{{ $movie->title }}</td>
-                <td><img width="60%" src="{{ asset('/uploads/movie/' . $movie->image) }}" alt=""></td>
+                <td><img width="40%" src="{{ asset('/uploads/movie/' . $movie->image) }}" alt=""></td>
                 <td>{{ $movie->trailer }}</td>
                 <td>
                     @if ($movie->resolution == 0)
@@ -66,17 +65,17 @@
                     @endif
                 </td>
 
-                {{-- <td>{{ $movie->category->title }}</td>
+                <td>{{ $movie->category->title }}</td>
                 <td>{{ $movie->country->title }}</td>
-                <td>{{ $movie->genre->title }}</td> --}}
+                {{-- <td>{{ $movie->genre->title }}</td> --}}
                 {{-- <td>{{ $movie->create_day }}</td> --}}
                 <td>{{ $movie->update_day }}</td>
                 <td>
                     {!! Form::selectYear('year', 2017, 2022, isset($movie->year) ? $movie->year : '', ['class' => 'select-year custom-select', 'id' => $movie->id]) !!}
                 </td>
-                <td>
+                {{-- <td>
                     {!! Form::select('topview', ['0' => 'Ngày', '1' => 'Tuần', '2' => 'Tháng'], isset($movie) ? $movie->topview : '', ['class' => 'select-topview custom-select', 'id' => $movie->id]) !!}
-                </td>
+                </td> --}}
 
                 <td>
                     {!! Form::open(['method' => 'DELETE', 'route' => ['movie.destroy', $movie->id], 'onsubmit' => 'return confirm("Bạn có chắc chắn muốn xóa phim?")']) !!}

@@ -17,6 +17,7 @@ use File;
 
 class MovieController extends Controller
 {
+    //variable
     private $path_view_controller = 'admin.movie.';
 
     public function __construct()
@@ -33,9 +34,9 @@ class MovieController extends Controller
         $list       = Movie::with('category', 'country', 'movie_genre', 'genre')->orderBy('id', 'DESC')->get();
         // return response()->json($list);
 
-        $path       = public_path().'/json_file';
+        $path       = public_path().'/json';
         if(!is_dir($path)){
-            mkdir($path, 07777, true); //create folder json_file và cấp quyền thêm sửa xóa
+            mkdir($path, 0777, true); //create folder json_file và cấp quyền thêm sửa xóa
         }
         File::put($path.'/movies.json', json_encode($list));
 

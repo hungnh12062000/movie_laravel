@@ -3394,7 +3394,7 @@ a .hl-dot-3 {
     padding: 4px;
     display: none;
     -webkit-transform: translateZ(0);
-    transition: all 0.3s ease-out;
+    transition: all 0.2s ease-out;
 }
 #easy-top:hover {
     background: rgba(0, 0, 0, 0.9);

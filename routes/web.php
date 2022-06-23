@@ -87,9 +87,4 @@ Route::prefix($admin)->group(function () {
     //====================TẬP PHIM=========================
     Route::resource('/episode', EpisodeController::class);
 
-    //====================SLIDER===========================
-    $slider  = 'slider';
-    Route::prefix($slider)->group(function () {
-        Route::get('/', [DashboardController::class, 'slider'])->name('slider');
-    });
 });

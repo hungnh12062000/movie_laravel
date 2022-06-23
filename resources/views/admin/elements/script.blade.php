@@ -23,6 +23,12 @@ integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/f
 
 {{-- episode --}}
 <script type="text/javascript">
+    //datatable
+    $(document).ready(function() {
+        $('#tableMovie').DataTable();
+    });
+
+
     $('.select_movie').change(function() {
         var id = $(this).val();
 

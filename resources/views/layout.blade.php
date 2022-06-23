@@ -10,7 +10,7 @@
     <meta name="DC.language" scheme="utf-8" content="vi" />
     <meta name="language" content="Việt Nam">
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="shortcut icon"
         href="https://www.pngkey.com/png/detail/360-3601772_your-logo-here-your-company-logo-here-png.png"
         type="image/x-icon" />
@@ -42,7 +42,6 @@
         .textwidget p a img {
             width: 100%;
         }
-
     </style>
     <style>
         #header .site-title {
@@ -50,8 +49,10 @@
             background-size: contain;
             text-indent: -9999px;
         }
-
     </style>
+
+    {{-- datatable --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
 </head>
 
 <body class="home blog halimthemes halimmovies" data-masonry="">
@@ -59,8 +60,8 @@
         <div class="container">
             <div class="row" id="headwrap">
                 <div class="col-md-3 col-sm-6 slogan">
-                    <p class="site-title"><a class="logo" href="{{ route('homepage') }}"
-                            title="phim hay ">Phim Hay</p>
+                    <p class="site-title"><a class="logo" href="{{ route('homepage') }}" title="phim hay ">Phim Hay
+                    </p>
                     </a>
                 </div>
 
@@ -78,32 +79,20 @@
                                     border: 2px solid #000;
                                     border-top: 1px solid transparent;
                                 }
-
                             </style>
                             <div class="form-group form-search">
                                 <div class="input-group col-xs-12">
                                     <form action="{{ route('search') }}" method="GET" class="input-search">
                                         <input id="search" type="text" name="search" class="form-control"
-                                            placeholder="Tìm kiếm..." autocomplete="off" required>
-                                        {{-- <i class="animate-spin hl-spin4 hidden"></i> --}}
+                                            placeholder="Tìm kiếm phim..." autocomplete="off" required>
                                         <button class="btn btn-primary">Tìm kiếm</button>
                                     </form>
                                 </div>
                             </div>
-
-                            <ul class="list-group" id="result" style="display: none;">
-                            </ul>
+                            {{-- <ul class="list-group" id="result" style="display: none"></ul> --}}
                         </div>
                     </div>
                 </div>
-
-                {{-- <div class="col-md-4 hidden-xs">
-                    <div id="get-bookmark" class="box-shadow"><i class="hl-bookmark"></i><span>
-                            Bookmarks</span><span class="count">0</span></div>
-                    <div id="bookmark-list" class="hidden bookmark-list-on-pc">
-                        <ul style="margin: 0;"></ul>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </header>
@@ -111,27 +100,6 @@
     <div class="navbar-container">
         <div class="container">
             <nav class="navbar halim-navbar main-navigation" role="navigation" data-dropdown-hover="1">
-                {{-- <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse"
-                        data-target="#halim" aria-expanded="false">
-                        <span class="sr-only">Menu</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <button type="button" class="navbar-toggle collapsed pull-right expand-search-form"
-                        data-toggle="collapse" data-target="#search-form" aria-expanded="false">
-                        <span class="hl-search" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="navbar-toggle collapsed pull-right get-bookmark-on-mobile">
-                        Bookmarks<i class="hl-bookmark" aria-hidden="true"></i>
-                        <span class="count">0</span>
-                    </button>
-                    <button type="button" class="navbar-toggle collapsed pull-right get-locphim-on-mobile">
-                        <a href="javascript:;" id="expand-ajax-filter" style="color: #ffed4d;">Lọc <i
-                                class="fas fa-filter"></i></a>
-                    </button>
-                </div> --}}
                 <div class="collapse navbar-collapse" id="halim">
                     <div class="menu-menu_1-container">
                         <ul id="menu-menu_1" class="nav navbar-nav navbar-left">
@@ -141,52 +109,39 @@
                                 <a title="Thể Loại" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">THỂ LOẠI<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    {{-- @foreach ($genre as $key => $gen)
+                                    @foreach ($genre as $key => $gen)
                                         <li><a title="{{ $gen->title }}"
                                                 href="{{ route('genre', $gen->slug) }}">{{ $gen->title }}</a></li>
-                                    @endforeach --}}
+                                    @endforeach
                                 </ul>
                             </li>
                             <li class="mega dropdown">
                                 <a title="Quốc Gia" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">QUỐC GIA<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    {{-- @foreach ($country as $key => $coun)
+                                    @foreach ($country as $key => $coun)
                                         <li><a title="{{ $coun->title }}"
                                                 href="{{ route('country', $coun->slug) }}">{{ $coun->title }}</a>
                                         </li>
-                                    @endforeach --}}
+                                    @endforeach
                                 </ul>
                             </li>
                             <li class="mega dropdown">
                                 <a title="Năm phim" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">NĂM PHIM<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    {{-- @for ($year = 2017; $year <= 2022; $year++)
+                                    @for ($year = 2017; $year <= 2022; $year++)
                                         <li><a title="{{ $year }}"
                                                 href="{{ url('nam/' . $year) }}">{{ $year }}</a>
                                         </li>
-                                    @endfor --}}
+                                    @endfor
                                 </ul>
                             </li>
-                            {{-- @foreach ($category as $key => $cate)
+                            @foreach ($category as $key => $cate)
                                 <li class="mega" style="text-transform: uppercase;"><a
                                         title="{{ $cate->title }}"
                                         href="{{ route('category', $cate->slug) }}">{{ $cate->title }}</a></li>
-                            @endforeach --}}
-                            {{-- <li class="mega dropdown">
-                                <a title="Năm" href="#" data-toggle="dropdown" class="dropdown-toggle"
-                                    aria-haspopup="true">Năm <span class="caret"></span></a>
-                                <ul role="menu" class=" dropdown-menu">
-                                    <li><a title="Phim 2020" href="danhmuc.php">Phim 2020</a></li>
-                                    <li><a title="Năm 2019" href="danhmuc.php">Năm 2019</a></li>
-                                    <li><a title="Năm 2018" href="danhmuc.php">Năm 2018</a></li>
-                                </ul>
-                            </li> --}}
-
-                            {{-- <li><a title="Phim Lẻ" href="danhmuc.php">Phim Lẻ</a></li>
-                            <li><a title="Phim Bộ" href="danhmuc.php">Phim Bộ</a></li>
-                            <li><a title="Phim Chiếu Rạp" href="danhmuc.php">Phim Chiếu Rạp</a></li> --}}
+                            @endforeach
                         </ul>
                     </div>
                     {{-- <ul class="nav navbar-nav navbar-left" style="background:#000;">
@@ -219,7 +174,8 @@
                 <div class="bar">
                     <div class="bar-wrap">
                         <div class="links">
-                            <img src="https://www.pngkey.com/png/detail/360-3601772_your-logo-here-your-company-logo-here-png.png" alt="Phim Mới" />
+                            <img src="https://www.pngkey.com/png/detail/360-3601772_your-logo-here-your-company-logo-here-png.png"
+                                alt="Phim Mới" />
                             <br>
                             <div class="copyright">Copyright 2022 © <a href="#"
                                     title="Phim Mới">XEMPHIMHAY.NET</a> <br />
@@ -239,29 +195,19 @@
                             </div>
                             <div class="hotlink">
                                 <h3 class="phimaz-foot">Phim Lẻ</h3>
-                                <a href="#"
-                                    title="Phim Hành Động">Phim hành động</a>
-                                <a href="#"
-                                    title="Phim kiếm hiệp">Phim kiếm hiệp</a>
-                                <a href="#"
-                                    title="Phim kinh dị">Phim kinh dị</a>
-                                <a href="#"
-                                    title="Phim viễn tưởng">Phim viễn tưởng</a>
-                                <a href="#"
-                                    title="Phim hoạt hình">Phim hoạt hình</a>
+                                <a href="#" title="Phim Hành Động">Phim hành động</a>
+                                <a href="#" title="Phim kiếm hiệp">Phim kiếm hiệp</a>
+                                <a href="#" title="Phim kinh dị">Phim kinh dị</a>
+                                <a href="#" title="Phim viễn tưởng">Phim viễn tưởng</a>
+                                <a href="#" title="Phim hoạt hình">Phim hoạt hình</a>
                             </div>
                             <div class="hotlink">
                                 <h3 class="phimaz-foot">Phim Bộ</h3>
-                                <a href="#"
-                                    title="Phim bộ Hàn Quốc">Phim bộ Hàn Quốc</a>
-                                <a href="#"
-                                    title="Phim bộ Trung Quốc">Phim bộ Trung Quốc</a>
-                                <a href="#"
-                                    title="Phim bộ Mỹ">Phim bộ Mỹ</a>
-                                <a href="#"
-                                    title="Phim bộ Việt Nam">Phim bộ Việt Nam</a>
-                                <a href="#"
-                                    title="Phim bộ Hồng Kông">Phim bộ Hồng Kông</a>
+                                <a href="#" title="Phim bộ Hàn Quốc">Phim bộ Hàn Quốc</a>
+                                <a href="#" title="Phim bộ Trung Quốc">Phim bộ Trung Quốc</a>
+                                <a href="#" title="Phim bộ Mỹ">Phim bộ Mỹ</a>
+                                <a href="#" title="Phim bộ Việt Nam">Phim bộ Việt Nam</a>
+                                <a href="#" title="Phim bộ Hồng Kông">Phim bộ Hồng Kông</a>
                             </div>
 
                         </div>
@@ -279,30 +225,22 @@
         <div id="fb-root"></div>
         <div id='easy-top'></div>
     </footer>
-    {{-- <footer id="footer" class="clearfix">
-        <div class="container footer-columns">
-            <div class="row container">
-                <div class="widget about col-xs-12 col-sm-4 col-md-4">
-                    <div class="footer-logo">
-                        <img class="img-responsive"
-                            src="https://img.favpng.com/9/23/19/movie-logo-png-favpng-nRr1DmYq3SNYSLN8571CHQTEG.jpg"
-                            alt="Phim hay 2021- Xem phim hay nhất" />
-                    </div>
-                    Liên hệ QC: <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                        data-cfemail="e5958d8c888d849ccb868aa58288848c89cb868a88">[email&#160;protected]</a>
-                </div>
-            </div>
-        </div>
-    </footer> --}}
-    {{-- <div id='easy-top'></div> --}}
 
     <script type='text/javascript' src='{{ asset('js/bootstrap.min.js') }}' id='bootstrap-js'></script>
     <script type='text/javascript' src='{{ asset('js/owl.carousel.min.') }}js' id='carousel-js'></script>
 
+    {{-- datatable --}}
+    <script type="text/javascript" src="//cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $('#tableMovie').DataTable();
+        } );
+    </script>
+
     {{-- facebook comment --}}
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=480748059834774&autoLogAppEvents=1"
+        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=480748059834774&autoLogAppEvents=1"
         nonce="IulYdjEA"></script>
 
     <script type='text/javascript' src='{{ asset('js/halimtheme-core.min.js?ver=1626273138') }}' id='halim-init-js'>
@@ -318,7 +256,7 @@
                 if (search != '') { // 0 empty thì search
                     $('#result').css('display', 'inherit');
                     var expression = new RegExp(search, 'i'); // => /search_val/i
-                    $.getJSON('/json_file/movies.json', function(data) {
+                    $.getJSON('/json/movies.json', function(data) {
                         $.each(data, function(key, value) {
                             if (value.title.search(expression) != -1) {
                                 $('#result').append(
@@ -327,7 +265,8 @@
                                     '" width="100" class="" style="margin-right: 8px;"/><div style="flex-direction: column; margin-left: 2px;"><h4 width="100%">' +
                                     value.title +
                                     '</h4><span style="display: -webkit-box; max-height: 8.2rem; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-line-clamp: 5; line-height: 1.6rem;" class="text-muted">| ' +
-                                    value.description + '</span></div></li>');
+                                    value.description + '</span></div></li>'
+                                    );
                             }
                         });
                     })
@@ -345,7 +284,6 @@
             });
         })
     </script>
-
 
     {{-- slider --}}
     <script type="text/javascript">
@@ -484,7 +422,6 @@
                 transform: translate(-50%, 3%)
             }
         }
-
     </style>
 
     <style>
@@ -556,7 +493,6 @@
                 transform: translate(-50%, 3%);
             }
         }
-
     </style>
 
     <style>
@@ -601,7 +537,6 @@
             color: #FFF;
             float: left;
         }
-
     </style>
 </body>
 

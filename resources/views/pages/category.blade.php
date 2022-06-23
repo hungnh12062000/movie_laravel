@@ -5,8 +5,8 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-6">
-                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">{{ $cate_slug->title }}</a> » <span
-                                        class="breadcrumb_last" aria-current="page">2022</span></span></span></div>
+                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">{{ $cate_slug->title }}</a> »
+                                    <span class="breadcrumb_last" aria-current="page">2022</span></span></span></div>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                     @foreach ($movie as $key => $mov)
                         <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
                             <div class="halim-item">
-                                <a class="halim-thumb" href="{{route('movie', $mov->slug)}}">
+                                <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
                                     <figure><img class="lazy img-responsive"
                                             src="{{ asset('uploads/movie/' . $mov->image) }}" alt="{{ $mov->title }}"
                                             title="{{ $mov->title }}">
@@ -43,12 +43,11 @@
                                         @else
                                             Trailer
                                         @endif
-                                    </span><span class="episode"><i class="fa fa-play"
-                                            aria-hidden="true"></i>
+                                    </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
                                         @if ($mov->cc == 0)
-                                            Phụ đề | {{$mov->time}}
+                                            Phụ đề | {{ $mov->time }}
                                         @elseif ($mov->cc == 1)
-                                            TM | {{$mov->time}}
+                                            TM | {{ $mov->time }}
                                         @endif
                                     </span>
                                     <div class="icon_overlay"></div>
@@ -73,7 +72,7 @@
             </section>
         </main>
 
-        {{-- sidebar  --}}
+        {{-- sidebar --}}
         @include('pages.include.sidebar')
     </div>
 @endsection

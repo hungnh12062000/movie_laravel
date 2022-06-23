@@ -4,6 +4,8 @@
 }
 .table>tbody>tr>td{
     vertical-align: middle;
+    color: #000;
+    font-weight: 600;
 }
 img.zvn-thumb {
     max-width: 100%;

@@ -22,14 +22,19 @@
                 <!-- /top navigation -->
                     <!-- page content -->
                     <div class="right_col" role="main">
+                        <style>
+                            .right_col{
+                                height: 93vh;
+                            }
+                        </style>
                         @yield('content')
                     </div>
                     <!-- /page content -->
-                    <!-- footer -->
-                    @include('admin.elements.footer')
-                    <!-- /footer -->
+                </div>
+                <!-- footer -->
+                @include('admin.elements.footer')
+                <!-- /footer -->
             </div>
-    </div>
 
     @include('admin.elements.script')
 

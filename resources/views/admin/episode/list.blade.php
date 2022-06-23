@@ -1,13 +1,13 @@
 {{-- list --}}
-<table class="table table-hover">
+<table class="table table-hover table-bordered" id="tableMovie">
     <thead class="">
         <tr class="bg-primary">
             <th scope="col" class="">#</th>
-            <th scope="col" class="col-2">Tên phim</th>
-            <th scope="col" class="col-1">tập phim </th>
-            <th scope="col" class="col-7">Link phim</th>
-            {{-- <th scope="col" class="col-2">Trạng thái</th> --}}
-            <th scope="col" class="col-2">Hành động</th>
+            <th scope="col">Tên phim</th>
+            <th scope="col">tập phim </th>
+            <th scope="col">Link phim</th>
+            {{-- <th scope="col">Trạng thái</th> --}}
+            <th scope="col">Hành động</th>
         </tr>
     </thead>
     <tbody>
@@ -21,9 +21,8 @@
                     <style>
                         .iframe_movie iframe {
                             width: 100%;
-                            height: 350px;
+                            height: 300px;
                         }
-
                     </style>
                     <div class="iframe_movie">
                         {!! $episode->link_movie !!}
